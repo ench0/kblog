@@ -1,0 +1,90 @@
+if duperror
+    .uk-text-danger Error: #{duperror}
+
+if conerrors
+    each error in conerrors
+        .uk-text-danger Error: #{error.message} - #{error.value}
+
+
+if valerrors
+    each error in valerrors
+        each val, index in error
+            .uk-text-danger=val
+
+form.uk-form-stacked(method='POST' action='' enctype="multipart/form-data")
+    //- csrf hidden input
+    h1=csrfToken
+    input(type='hidden', name='_csrf', value=csrfToken)
+    if edit
+        input#_id(type='hidden', name='_id', value=page._id)
+
+    div
+        label.uk-form-label(for='title') Title:
+        .uk-form-controls
+            input.uk-input(type='text', placeholder='Page title' name='title' value=(undefined===page ? '' : page.title))
+
+    div.uk-margin
+        label.uk-form-label(for='slug') Slug
+        .uk-form-controls
+            input#slug.uk-input(type='text', placeholder='Page slug' name='slug' value=(undefined===page ? '' : page.slug))
+
+    div.uk-margin
+        label.uk-form-label(for='headline') Headline:
+        .uk-form-controls
+            input.uk-input(type='text', placeholder='Headline' name='headline' value=(undefined===page ? '' : page.headline))
+
+    div.uk-margin
+        label.uk-form-label(for='abstract') Abstract
+        .uk-form-controls
+            textarea.uk-textarea(type='textarea', placeholder='Abstract' name='abstract' rows=3)=(undefined===page ? '' : page.abstract)
+
+    div.uk-margin
+        label.uk-form-label(for='body') Body
+        textarea#editor.uk-textarea(type='textarea', placeholder='Body' name='body' rows=20)=page.body
+
+    div.uk-margin
+        label.uk-form-label(for='images') Images
+        .uk-form-controls
+            input.uk-input(type='file', placeholder='images' name='images' multiple value=(undefined===page ? '' : page.images))
+
+    -imagelist = []
+    div.uk-margin
+        if page.images
+            each image in page.images
+                div File: #{image.file} Description: #{image.description}
+                - imagelist.push(image.file)
+
+    div.uk-margin
+        label.uk-form-label(for='replace') Replace images
+        .uk-form-controls
+            input.uk-checkbox(type='checkbox', name='replace')
+
+    div.uk-margin
+        label.uk-form-label(for='resized') Resize images
+        .uk-form-controls
+            input.uk-checkbox(type='checkbox', name='resized' checked='checked')
+
+    div.uk-margin
+        label.uk-form-label(for='active') Active
+        if page
+            .uk-form-controls
+                if page.active
+                    input.uk-checkbox(type='checkbox', name='active' checked='checked')
+                else
+                    input.uk-checkbox(type='checkbox', name='active')
+        else
+            .uk-form-controls
+                input.uk-input(type='checkbox', name='active')
+
+    div.uk-margin
+        button.uk-button.uk-button-primary.uk-width-1-1(type='submit')
+            span(uk-icon="icon: check; ratio: .75")
+            |  Submit
+
+    if errors 
+        ul
+            for error in errors
+                li!= error.msg
+
+
+    div#imagelist=imagelist

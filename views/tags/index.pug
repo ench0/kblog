@@ -1,0 +1,22 @@
+extends ../layout
+
+
+block header
+    h1.uk-text-uppercase=title
+    p Tag index
+    p.abstract
+        | #[strong Abstract.] The list below shows all the tags used in posts. Sorted alphabetically.
+
+block content
+    div.uk-section.uk-section-muted
+
+        div.uk-section.uk-section-small.uk-padding-small
+            div.uk-container.uk-text-center
+                span
+                    each tag in tags
+                        span.comma.uk-text-large #[a(href="/tags/"+tag)=tag]
+                        | 
+block footer
+    ol
+        li Permalink: 
+            a(href="/tags/") tags

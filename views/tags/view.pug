@@ -1,0 +1,54 @@
+extends ../layout
+
+block header
+    h1.uk-text-uppercase=title
+    p A tag
+    p.abstract
+        | #[strong Abstract.] Tag with corresponding posts.
+    //- if post.tags.length
+    //-     p.abstract
+    //-         | #[strong Keywords:]
+    //-         | 
+    //-         span
+    //-             each tag in post.tags
+    //-                 span.comma #[a(href="/tags/"+tag)=tag]
+    //-                 | 
+
+block content
+
+    div.uk-section.uk-section-xsmall
+
+        .uk-grid-match(class='uk-child-width-1-2@s', uk-grid='')
+
+            each post in posts
+                - slug= "/posts/"+post.slug
+                - created=dateFormat(post.created, "ddd, dS mmm yyyy")
+                - time=dateFormat(post.created, "yyyy-mm-ddTHH:mm")
+
+
+                div
+                    .uk-card.uk-card-default.uk-card-hover
+                        .uk-card-media-top
+                            if post.images[0]
+                                .uk-cover-container
+                                    canvas(width="400" height="200")
+                                    img.uk-cover(src="/uploads/"+ post.slug + "/thumb_"+ post.images[0].file alt="")
+                        .uk-card-header
+                            h3.uk-card-title=post.title
+                        .uk-card-body
+                            p=created
+                        .uk-card-footer.uk-text-center
+                            a.uk-button.uk-button-text(href=slug) Read more
+
+
+    //- div.uk-section.uk-section-small.uk-padding-small.uk-text-left
+    //-     span
+    //-         each post in posts
+    //-             span.comma #[a(href="/posts/"+post.slug)=post.title]
+    //-             if post.images[0]
+    //-                 img(src="/uploads/"+ post.slug + "/thumb_"+ post.images[0].file alt="")
+
+block footer
+    ol
+        li Permalink: 
+            a(href="/tags/"+title) #{title}

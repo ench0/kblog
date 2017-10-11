@@ -1,0 +1,61 @@
+extends ../layout
+
+block edit
+    div.uk-position-fixed.uk-width-1-1
+        if post.slug
+            div
+                a.uk-button.uk-button-default.uk-button-small.uk-position-top-left.uk-margin-left(href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)
+                    span(uk-icon="icon: pencil; ratio: .75")
+                    |  Edit
+        div
+            a.uk-button.uk-button-default.uk-button-small.uk-position-top-right.uk-margin-right(href="/posts/new?_csrf="+csrfToken)
+                span(uk-icon="icon: plus; ratio: .75")
+                |  New
+
+block header
+    - headline = post.headline || "Index of them all"
+    h1.uk-text-uppercase=title
+    p.headline=headline
+    p.abstract #[strong Abstract.] #{post.abstract}
+
+        //- | #[strong Abstract.] The list below shows all the posts sorted by date of creation, newest first. Keywords listed are some of the most used ones.
+    -tags=["tag1", "tag2", "tag3"]
+    p.abstract
+        | #[strong Keywords:]
+        | 
+        span
+            each tag in tags
+                span.comma #[a(href="/tags/"+tag)=tag]
+                | 
+
+block content
+
+
+    include ../messages
+
+    div.uk-section.uk-section-xsmall.uk-text-justify(class="uk-column-1-1@m")!=body
+
+    div.uk-section.uk-section-xsmall
+
+        .uk-grid-match(class='uk-child-width-1-2@s', uk-grid='')
+            each post in posts
+                - slug= "/posts/"+post.slug
+                - created=dateFormat(post.created, "ddd, dS mmm yyyy")
+                - time=dateFormat(post.created, "yyyy-mm-ddTHH:mm")
+
+
+                div
+                    .uk-card.uk-card-default.uk-card-hover
+                        .uk-card-header
+                            h3.uk-card-title=post.title
+                        .uk-card-body
+                            img(src="/uploads/posts/"+post.slug+"/"+post.images[0].file alt="")
+                            p=created
+                        .uk-card-footer.uk-text-center
+                            a.uk-button.uk-button-text(href=slug) Read more
+
+
+block footer
+    ol
+        li Permalink: 
+            a(href="/posts/") posts

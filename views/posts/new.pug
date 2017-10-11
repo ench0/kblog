@@ -1,0 +1,106 @@
+extends ../layout
+
+block content
+    -titlepage = undefined===post.title ? title : post.title
+    h1 #{titlepage}
+
+    include form
+
+
+block scripts
+    script(src='/js/simplemde.min.js')
+    script(type='text/javascript').
+        var imagelist = document.getElementById("imagelist").textContent
+        var slug = document.getElementById("slug").value
+        var imgs = imagelist.split(",")
+
+        if (imgs[0]) {
+            var image0 = 
+                {
+                    name: "Image 1",
+                    action: function drawRedText(editor) {
+
+
+                        console.log(imgs)
+                        var cm = editor.codemirror;
+                        var output = '';
+                        var selectedText = cm.getSelection();
+                        var text = selectedText || 'placeholder';
+
+                        output = '![](/uploads/posts/'+slug+'/'+imgs[0]+')';
+                        cm.replaceSelection(output);
+
+                    },
+                    className: "fa fa-star", // Look for a suitable icon
+                    title: "Image 1 (Ctrl/Cmd-Alt-R)",
+                }
+        }
+        else image0 = ""
+
+        if (imgs[1]) {
+            var image1 = 
+                {
+                    name: "Image 1",
+                    action: function drawRedText(editor) {
+
+
+                        console.log(imgs)
+                        var cm = editor.codemirror;
+                        var output = '';
+                        var selectedText = cm.getSelection();
+                        var text = selectedText || 'placeholder';
+
+                        output = '![](/uploads/posts/'+slug+'/'+imgs[1]+')';
+                        cm.replaceSelection(output);
+
+                    },
+                    className: "fa fa-star", // Look for a suitable icon
+                    title: "Image 1 (Ctrl/Cmd-Alt-R)",
+                }
+        }
+        else image1 = ""
+
+        if (imgs[2]) {
+            var image2 = 
+                {
+                    name: "Image 1",
+                    action: function drawRedText(editor) {
+
+
+                        console.log(imgs)
+                        var cm = editor.codemirror;
+                        var output = '';
+                        var selectedText = cm.getSelection();
+                        var text = selectedText || 'placeholder';
+
+                        output = '![](/uploads/posts/'+slug+'/'+imgs[2]+')';
+                        cm.replaceSelection(output);
+
+                    },
+                    className: "fa fa-star", // Look for a suitable icon
+                    title: "Image 1 (Ctrl/Cmd-Alt-R)",
+                }
+        }
+        else image2 = ""
+
+        console.log(imagelist)
+        var simplemde = new SimpleMDE({
+            autofocus: true,
+            autosave: true,
+            element: $("#editor")[0],
+            forceSync: true,
+            initialValue: "",
+            placeholder: "Type here...",
+            showIcons: ["code", "table"],
+            toolbar: [
+                "bold", "italic", "strikethrough", "heading", "|", "code", "quote", "unordered-list", "ordered-list", "|" , "image",
+                {
+                    name: "bold",
+                    action: SimpleMDE.toggleBold,
+                    className: "fa fa-bold",
+                    title: "Bold",
+                },
+                image0, image1, image2
+
+            ]
+        });

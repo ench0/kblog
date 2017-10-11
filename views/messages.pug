@@ -1,0 +1,11 @@
+if messages.success
+    div.uk-alert-success(uk-alert)
+        a.uk-alert-close(uk-close)
+        each message in messages
+            p=message
+
+if messages.danger
+    div.uk-alert-danger(uk-alert)
+        a.uk-alert-close(uk-close)
+        each message in messages
+            p=message

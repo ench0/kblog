@@ -1,0 +1,40 @@
+extends ../layout
+block edit
+    div.uk-position-fixed.uk-width-1-1
+        div
+            a.uk-button.uk-button-default.uk-button-small.uk-position-top-left.uk-margin-left(href="/"+page.slug+"/edit?_csrf="+csrfToken)
+                span(uk-icon="icon: pencil; ratio: .75")
+                |  Edit
+        div
+            a.uk-button.uk-button-default.uk-button-small.uk-position-top-right.uk-margin-right(href="/pages/new?_csrf="+csrfToken)
+                span(uk-icon="icon: plus; ratio: .75")
+                |  New
+
+block header
+    h1.uk-text-uppercase=title
+    p.abstract
+        | #[strong Abstract.] #{page.abstract} | Reading time &asymp; #{readtime}
+
+
+block content
+
+    include ../messages
+
+
+    //- div.uk-section.uk-padding-remove-bottom.uk-text-left
+    //-     h2.uk-heading.uk-text-uppercase=title
+
+    div.uk-section.uk-section-xsmall.uk-text-justify(class="uk-column-1-2@m")!=body
+
+    div.uk-section.uk-section-small.uk-padding-small.uk-text-left
+
+        if page.active
+            span(uk-icon="icon: check")
+            | 
+        else
+            span(uk-icon="icon: close") | 
+
+block footer
+    ol
+        li Permalink: 
+            a(href="/pages/"+page.slug) #{page.slug}

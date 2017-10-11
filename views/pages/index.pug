@@ -1,0 +1,55 @@
+extends ../layout
+
+block edit
+    div.uk-position-fixed.uk-width-1-1
+        if page.slug
+            div
+                a.uk-button.uk-button-default.uk-button-small.uk-position-top-left.uk-margin-left(href="/"+page.slug+"/edit?_csrf="+csrfToken)
+                    span(uk-icon="icon: pencil; ratio: .75")
+                    |  Edit
+        div
+            a.uk-button.uk-button-default.uk-button-small.uk-position-top-right.uk-margin-right(href="/new?_csrf="+csrfToken)
+                span(uk-icon="icon: plus; ratio: .75")
+                |  New
+
+block header
+    h1.uk-text-uppercase=title
+    p.headline=page.headline
+    p.abstract
+        | #[strong Abstract.] #{page.abstract}
+
+    p.abstract
+        | #[strong Keywords:] phd, linked data, programming, js
+
+        //- The list below shows all the pages sorted by date of creation, newest first. Keywords listed are some of the most used ones.
+
+block content
+
+
+    include ../messages
+
+
+    div.uk-section.uk-section-xsmall.uk-text-justify(class="uk-column-1-1@m")!=body
+
+    //- div.uk-section.uk-section-xsmall
+
+    //-     .uk-grid-match(class='uk-child-width-1-2@s', uk-grid='')
+    //-         each page in pages
+    //-             - slug= "/"+page.slug
+    //-             - created=dateFormat(page.created, "ddd, dS mmm yyyy")
+    //-             - time=dateFormat(page.created, "yyyy-mm-ddTHH:mm")
+
+
+    //-             div
+    //-                 .uk-card.uk-card-default.uk-card-hover
+    //-                     .uk-card-header
+    //-                         h3.uk-card-title=page.title
+    //-                     .uk-card-body
+    //-                         p=created
+    //-                     .uk-card-footer.uk-text-center
+    //-                         a.uk-button.uk-button-text(href=slug) Read more
+
+block footer
+    ol
+        li Permalink: 
+            a(href="/pages/") pages
