@@ -1,0 +1,22 @@
+extends ../layout
+
+
+block header
+    h1.uk-text-uppercase=title
+    p.abstract
+        | #[strong Abstract.] Git update
+
+
+block content
+
+    include ../messages
+
+
+    div.uk-section.uk-section-xsmall.uk-text-justify(class="uk-column-1-1@m")!=message
+
+
+
+block footer
+    ol
+        li Permalink: 
+            a(href="/pages/update/") update
