@@ -20,12 +20,13 @@ exports.github = async (ctx) => {
     shell.exec(cd)
 
     const git = await shell.exec('git pull')
-    const update = await shell.exec('pm2 reload ensar-blog');
 
     await delay(3000)
 
-    console.log("git", git)
-    console.log("update", update)
+    const update = await shell.exec('pm2 reload ensar-blog');
+
+    // console.log("git", git)
+    // console.log("update", update)
     
     return ctx.render("pages/update", {
         title: "Update",
