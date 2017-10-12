@@ -29,6 +29,11 @@ form.uk-form-stacked(method='POST' action='' enctype="multipart/form-data")
             input#slug.uk-input(type='text', placeholder='Post slug' name='slug' value=(undefined===post ? '' : post.slug))
 
     div.uk-margin
+        label.uk-form-label(for='headline') Headline:
+        .uk-form-controls
+            input.uk-input(type='text', placeholder='Headline' name='headline' value=(undefined===post ? '' : post.headline))
+
+    div.uk-margin
         label.uk-form-label(for='tags') Tags:
         .uk-form-controls
             input.uk-input(type='text', placeholder='Tags' name='tags' value=(undefined===tags ? '' : tags))

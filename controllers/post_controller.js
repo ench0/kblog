@@ -108,7 +108,7 @@ exports.create = async (ctx) => {
             
             const images = files_upload(data.slug, "posts", files, clear, resized)
 
-            const update = {title: data.title, slug: data.slug, body: data.body, active: data.active, tags: tags, abstract: data.abstract, images: images}
+            const update = {title: data.title, slug: data.slug, body: data.body, active: data.active, tags: tags, abstract: data.abstract, images: images, headline: data.headline}
 
             const result = await Post.create(update)
 
@@ -243,7 +243,7 @@ exports.update = async (ctx) => {
             const images = await files_upload(data.slug, "posts", files, clear, resized)
 
             const searchById = {_id: data._id}
-            const update = {title: data.title, slug: data.slug, body: data.body, active: data.active, tags: tags, abstract: data.abstract, updated: Date.now()}
+            const update = {title: data.title, slug: data.slug, body: data.body, active: data.active, tags: tags, abstract: data.abstract, headline: data.headline, updated: Date.now()}
                         
             if (!data.replace) {
                 var push = { $set: update, $push: { images: {$each: images}}}
