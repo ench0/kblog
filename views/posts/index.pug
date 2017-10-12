@@ -49,7 +49,8 @@ block content
                         .uk-card-header
                             h3.uk-card-title=post.title
                         .uk-card-body
-                            img(src="/uploads/posts/"+post.slug+"/"+post.images[0].file alt="")
+                            if post.images[0]
+                                img(src="/uploads/posts/"+post.slug+"/"+post.images[0].file alt="")
                             p=created
                         .uk-card-footer.uk-text-center
                             a.uk-button.uk-button-text(href=slug) Read more
