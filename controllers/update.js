@@ -18,16 +18,12 @@ exports.github = async (ctx) => {
     checkLogin(ctx)
     console.log("logged in")
     shell.exec(cd)
-
-    const git = await shell.exec('git pull')
-
-    await delay(3000)
-
-    const update = await shell.exec('pm2 reload ensar-blog');
-
-    // console.log("git", git)
-    // console.log("update", update)
     
+    const git = shell.exec('git pull')
+    shell.exec('sleep 1');
+    const update = shell.exec('pm2 reload ensar-blog');
+    shell.exec('sleep 1');
+
     return ctx.render("pages/update", {
         title: "Update",
         git: git,
