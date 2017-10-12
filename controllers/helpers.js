@@ -101,8 +101,6 @@ exports.files_upload = function(slug, path, files, clear, resized) {
             var normal =
             sharp()
                 .rotate()
-                .normalise()
-                .trim()
 
             const thumb =
                 sharp()
