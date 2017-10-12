@@ -20,26 +20,22 @@ exports.github = async (ctx) => {
     shell.exec(cd)
     
     const git = shell.exec('git pull')
-    shell.exec('sleep 1');
-    const update = shell.exec('pm2 reload ensar-blog');
-    shell.exec('sleep 1');
 
     return ctx.render("pages/update", {
         title: "Update",
-        git: git,
-        update: [update.stdout, update.stderr]
+        messages: [git.stdout, git.stderr]
     });
 }
 
-exports.reboot = async (ctx) => {
+exports.reload = async (ctx) => {
     
     checkLogin(ctx)
     
     shell.exec(cd);
-    const message = shell.exec('sudo reboot')
-
-    return ctx.render("pages/reboot", {
-        title: "Reboot",
-        message: message
+    const reloadpm2 = shell.exec('pm2 reload ensar-blog');
+    
+    return ctx.render("pages/update", {
+        title: "Reload",
+        messages: [reloadpm2.stdout, reloadpm2.stderr]
     });
 }

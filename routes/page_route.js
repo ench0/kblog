@@ -14,6 +14,7 @@ router
 .post('/:slug/edit', pages.update)
 .get('index', '/index', pages.redirect)
 .get('update', '/auth/update', update.github)
+.get('reload', '/auth/reload', update.reload)
 .get('view', '/:slug', pages.view)
 .post('/:id', pages.delete)
 
