@@ -73,7 +73,7 @@ exports.files_upload = function(slug, path, files, clear, resized) {
         
         console.log("ext:",ext)
         
-        let name = S(files[file].name).strip('.jpg', '.jpeg', '.gif', '.png', '.txt', '.pdf', '.doc', '.docx').slugify().s + "." + ext
+        let name = S(files[file].name).strip('.jpg', '.jpeg', '.gif', '.png', '.txt', '.pdf', '.doc', '.docx', '.JPG', '.JPEG', '.GIF', '.PNG', '.TXT', '.PDF', '.DOC', '.DOCX').slugify().s + "." + ext
         names.push({file: name, description: ""})
         
         // var stream = fs.createWriteStream(path.join(os.tmpdir(), Math.random().toString()));
