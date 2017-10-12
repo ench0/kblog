@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const mongoDB = process.env.MONGODB_URI || 'mongodb://localhost/eblog';
+const mongoDB = process.env.MONGODB_URI || 'mongodb://localhost/kblog';
 mongoose.Promise = require('bluebird')
 
 console.log('connecting to MongoDB...')
