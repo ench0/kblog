@@ -37,7 +37,7 @@ block content
 
     div.uk-section.uk-section-xsmall
 
-        .uk-grid-match(class='uk-child-width-1-2@s', uk-grid='')
+        .uk-grid-match(class='uk-child-width-1-2@s', uk-grid='' uk-height-match='target: .uk-card-body div')
             each post in posts
                 - slug= "/posts/"+post.slug
                 - created=dateFormat(post.created, "ddd, dS mmm yyyy")
@@ -49,9 +49,10 @@ block content
                         .uk-card-header
                             h3.uk-card-title=post.title
                         .uk-card-body
-                            if post.images[0]
-                                img(src="/uploads/posts/"+post.slug+"/"+post.images[0].file alt="")
-                            p=created
+                            div
+                                if post.images[0]
+                                    img(src="/uploads/posts/"+post.slug+"/"+post.images[0].file alt="")
+                                p=created
                         .uk-card-footer.uk-text-center
                             a.uk-button.uk-button-text(href=slug) Read more
 

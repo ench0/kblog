@@ -13,7 +13,7 @@ if valerrors
 
 form.uk-form-stacked(method='POST' action='' enctype="multipart/form-data")
     //- csrf hidden input
-    h1=csrfToken
+    //- h1=csrfToken
     input(type='hidden', name='_csrf', value=csrfToken)
     if edit
         input#_id(type='hidden', name='_id', value=post._id)
