@@ -31,7 +31,9 @@ exports.index = async (ctx) => {
     else {var data = []; var body = []}
     
 
-	const posts = await Post.find({}).sort('-created')
+	if (!ctx.isAuthenticated()) var posts = await Post.find({active:true}).sort('-created')
+    else var posts = await Post.find({}).sort('-created')
+    
 	if (!posts) {
 		throw new Error("There was an error retrieving your posts.")
 	} else {
