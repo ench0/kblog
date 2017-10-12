@@ -51,7 +51,7 @@ block content
                         .uk-card-body
                             div
                                 if post.images[0]
-                                    img(src="/uploads/posts/"+post.slug+"/"+post.images[0].file alt="")
+                                    img(src="/uploads/posts/"+post.slug+"/thumb_"+post.images[0].file alt="")
                                 p=created
                         .uk-card-footer.uk-text-center
                             a.uk-button.uk-button-text(href=slug) Read more
