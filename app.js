@@ -85,6 +85,9 @@ app.use(views(__dirname + '/views', { extension: 'pug' }))
 // VALIDATION
 require('koa-validate')(app);
 
+// favicon before routes
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
 const router = require('./routes')
 
 app
@@ -95,6 +98,6 @@ app
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log('Server listening on', port))
 
-// favicon & static
-app.use(favicon(__dirname + '/public/favicon.ico'));
+console.log(__dirname + '/public/favicon.ico')
+// static
 app.use(mount('/', require('koa-static')('public')));
