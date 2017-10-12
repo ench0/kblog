@@ -7,14 +7,14 @@ const checkLogin = async (ctx, next) => {
     if (ctx.isAuthenticated()) return
     else { 
         ctx.session.messages = {danger: ["You are not authorised!"]}
-        ctx.redirect('/posts/');
+        ctx.redirect('/');
     }
 }
 
 exports.github = async (ctx) => {
     
     checkLogin(ctx)
-    
+    console.log("logged in")
     shell.exec(cd)
     const message = shell.exec('git pull')
     await shell.exec('pm2 reload ensar-blog');

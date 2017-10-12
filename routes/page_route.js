@@ -13,7 +13,7 @@ router
 .get('edit', '/:slug/edit', pages.edit)
 .post('/:slug/edit', pages.update)
 .get('index', '/index', pages.redirect)
-.get('update', '/update', update.github)
+.get('update', '/auth/update', update.github)
 .get('view', '/:slug', pages.view)
 .post('/:id', pages.delete)
 
