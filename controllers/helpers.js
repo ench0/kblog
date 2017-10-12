@@ -139,8 +139,8 @@ exports.files_move  = function(oldslug, newslug, path) {
     var newdir = './public/uploads/'+path+'/'+newslug;
     
     if (fs.existsSync(olddir)){
-        // fs.moveSync(olddir, newdir, { overwrite: true })
-        fs.moveSync(olddir, newdir)
+        fs.moveSync(olddir, newdir, { overwrite: true })
+        // fs.moveSync(olddir, newdir)
     }
     
     fs.ensureDirSync(newdir)    
