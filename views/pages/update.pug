@@ -10,7 +10,10 @@ block header
 block content
 
 
-    div.uk-section.uk-section-xsmall.uk-text-justify(class="uk-column-1-1@m")!=message
+    div.uk-section.uk-section-xsmall.uk-text-justify(class="uk-column-1-1@m")
+        div=git
+        each item in update
+            div=item
 
 
 
