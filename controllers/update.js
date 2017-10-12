@@ -16,7 +16,7 @@ exports.github = async (ctx) => {
     checkLogin(ctx)
     console.log("logged in")
     shell.exec(cd)
-    const message = shell.exec('git pull')
+    const message = await shell.exec('git pull')
     await shell.exec('pm2 reload ensar-blog');
 
     return ctx.render("pages/update", {
