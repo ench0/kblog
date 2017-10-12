@@ -77,8 +77,8 @@ exports.create = async (ctx) => {
     else if (ctx.request.body.files.images.name == '') var files = []
     else var files = [ctx.request.body.files.images]
 
-    ctx.checkBody('title').notEmpty("Page should have a title!").len(2, 50,"Title needs to be 2-50 characters long!");
-    ctx.checkBody('slug').notEmpty("Slug can not be empty!").len(2, 50,"Slug needs to be 2-50 characters long!");
+    ctx.checkBody('title').notEmpty("Page should have a title!").len(2, 100,"Title needs to be 2-100 characters long!");
+    ctx.checkBody('slug').notEmpty("Slug can not be empty!").len(2, 100,"Slug needs to be 2-100 characters long!");
     ctx.checkBody('body').optional().empty().len(2, 10240,"Body needs to be 2-10240 characters long!");
 
     if (ctx.errors) {
@@ -190,8 +190,8 @@ exports.update = async (ctx) => {
     else if (ctx.request.body.files.images.name == '') var files = []
     else var files = [ctx.request.body.files.images]
 
-    ctx.checkBody('title').notEmpty("Page should have a title!").len(2, 50,"Title needs to be 2-50 characters long!");
-    ctx.checkBody('slug').notEmpty("Slug can not be empty!").len(2, 50,"Slug needs to be 2-50 characters long!");
+    ctx.checkBody('title').notEmpty("Page should have a title!").len(2, 100,"Title needs to be 2-100 characters long!");
+    ctx.checkBody('slug').notEmpty("Slug can not be empty!").len(2, 100,"Slug needs to be 2-100 characters long!");
     ctx.checkBody('body').optional().empty().len(2, 10240,"Body needs to be 2-10240 characters long!");    
     
     if (ctx.errors) {
