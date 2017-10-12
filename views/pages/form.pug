@@ -21,7 +21,7 @@ form.uk-form-stacked(method='POST' action='' enctype="multipart/form-data")
     div
         label.uk-form-label(for='title') Title:
         .uk-form-controls
-            input.uk-input(type='text', placeholder='Page title' name='title' value=(undefined===page ? '' : page.title))
+            input#title.uk-input(type='text', placeholder='Page title' name='title' value=(undefined===page ? '' : page.title))
 
     div.uk-margin
         label.uk-form-label(for='slug') Slug

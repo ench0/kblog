@@ -8,6 +8,14 @@ block content
 
 
 block scripts
+
+    script(src='/js/slugify.js')
+    script.
+        var $slug = $("#slug");
+        $("#title").keyup(function() {
+            $slug.val( window.slugify(this.value, {replacement: '-', remove: null, lower: true }) );
+        });
+
     script(src='/js/simplemde.min.js')
     script(type='text/javascript').
         var imagelist = document.getElementById("imagelist").textContent
