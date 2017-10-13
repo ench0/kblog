@@ -5,10 +5,13 @@ html(lang="en")
         meta(name='viewport', content='width=device-width, initial-scale=1')
         if post
             - var abstract = post.abstract
+            - var path = "posts/"
         else if page
             - var abstract = page.abstract
+            - var path = ""
         else
             - var abstract = "Ensar.me"
+            - var path = ""
         meta(name='description', content=abstract)
 
 
@@ -32,7 +35,7 @@ html(lang="en")
                     a.uk-button.uk-button-default.uk-button-small.uk-position-top-center.uk-margin-right(href="/auth")
                         span(uk-icon="icon: plus; ratio: .75")
                         |  Auth
-                    a.uk-button.uk-button-default.uk-button-small.uk-position-top-right.uk-margin-right(href="/new?_csrf="+csrfToken)
+                    a.uk-button.uk-button-default.uk-button-small.uk-position-top-right.uk-margin-right(href="/"+path+"new?_csrf="+csrfToken)
                         span(uk-icon="icon: plus; ratio: .75")
                         |  New
 
