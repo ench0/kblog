@@ -1,16 +1,11 @@
 extends ../layout
 
 block edit
-    div.uk-position-fixed.uk-width-1-1
-        if post.slug
-            div
-                a.uk-button.uk-button-default.uk-button-small.uk-position-top-left.uk-margin-left(href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)
-                    span(uk-icon="icon: pencil; ratio: .75")
-                    |  Edit
+    if post.slug
         div
-            a.uk-button.uk-button-default.uk-button-small.uk-position-top-right.uk-margin-right(href="/posts/new?_csrf="+csrfToken)
-                span(uk-icon="icon: plus; ratio: .75")
-                |  New
+            a.uk-button.uk-button-default.uk-button-small.uk-position-top-left.uk-margin-left(href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)
+                span(uk-icon="icon: pencil; ratio: .75")
+                |  Edit
 
 block header
     - headline = post.headline || "Index of them all"

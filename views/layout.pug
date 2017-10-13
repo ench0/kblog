@@ -26,7 +26,15 @@ html(lang="en")
 
     body
         if auth
-            block edit
+            div.uk-position-fixed.uk-width-1-1
+                block edit
+                div
+                    a.uk-button.uk-button-default.uk-button-small.uk-position-top-center.uk-margin-right(href="/auth")
+                        span(uk-icon="icon: plus; ratio: .75")
+                        |  Auth
+                    a.uk-button.uk-button-default.uk-button-small.uk-position-top-right.uk-margin-right(href="/new?_csrf="+csrfToken)
+                        span(uk-icon="icon: plus; ratio: .75")
+                        |  New
 
         section.uk-section.uk-section-small.uk-padding-remove-bottom
             section.uk-container.uk-container-small
