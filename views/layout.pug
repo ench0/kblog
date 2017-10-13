@@ -12,7 +12,7 @@ html(lang="en")
         meta(name='description', content=abstract)
 
 
-        if (host == "127.0.0.1:3000" || host == "localhost:3000")
+        if (process.env.NODE_ENV != "production")
             //- UIKit
             link(rel='stylesheet', href='/css/normalize.min.css')
             link(rel='stylesheet', href='/css/uikit.min.css')
@@ -54,7 +54,7 @@ html(lang="en")
                         h1.uk-heading-primary=title
                         block header
                     h1 !!!
-                    h1=host
+                    h1=process.env.NODE_ENV
                     block content
 
                     footer.uk-section.uk-padding-remove-bottom.uk-text-
@@ -62,7 +62,7 @@ html(lang="en")
 
         //- script!= settingsdef
 
-        if (host == "127.0.0.1:3000" || host == "localhost:3000")
+        if (process.env.NODE_ENV != "production")
             script(src='/js/jquery.min.js')
             script(src='/js/uikit.min.js')
             script(src='/js/uikit-icons.min.js')

@@ -22,7 +22,7 @@ const checkLogin = async (ctx, next) => {
 // INDEX
 exports.index = async (ctx) => {
     ctx.state.dateFormat = require('dateformat');
-
+    
     const messages = ctx.session.messages || []; // get any messages saved in the session
     delete ctx.session.messages; // delete the messages as they've been delivered
 
@@ -30,6 +30,7 @@ exports.index = async (ctx) => {
     if (index) {var data = index; var body = md.render(data.body);}
     else {var data = []; var body = []}
     
+    console.log('The value of PORT is:', process.env.PORT,  process.env.NODE_ENV);
 
 	if (!ctx.isAuthenticated()) var posts = await Post.find({active:true}).sort('-created')
     else var posts = await Post.find({}).sort('-created')
@@ -45,8 +46,7 @@ exports.index = async (ctx) => {
             auth: ctx.isAuthenticated(),
             csrfToken: ctx.csrf,
             post: data,
-            body: body,
-            host: ctx.host
+            body: body
         });
 	}
 }
