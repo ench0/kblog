@@ -11,9 +11,14 @@ html(lang="en")
             - var abstract = "Ensar.me"
         meta(name='description', content=abstract)
 
-        //- UIKit
-        link(rel='stylesheet', href='/css/normalize.min.css')
-        link(rel='stylesheet', href='/css/uikit.min.css')
+
+        if (host == "127.0.0.1:3000" || host == "localhost:3000")
+            //- UIKit
+            link(rel='stylesheet', href='/css/normalize.min.css')
+            link(rel='stylesheet', href='/css/uikit.min.css')
+        else
+            link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css')
+            link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/css/uikit.min.css')
 
         //- Additional styles
         link(rel='stylesheet', href='/css/style.css')
@@ -48,7 +53,8 @@ html(lang="en")
                     header.uk-section.uk-section-medium.uk-text-center
                         h1.uk-heading-primary=title
                         block header
-
+                    h1 !!!
+                    h1=host
                     block content
 
                     footer.uk-section.uk-padding-remove-bottom.uk-text-
@@ -56,8 +62,13 @@ html(lang="en")
 
         //- script!= settingsdef
 
-        script(src='/js/jquery.min.js')
-        script(src='/js/uikit.min.js')
-        script(src='/js/uikit-icons.min.js')
+        if (host == "127.0.0.1:3000" || host == "localhost:3000")
+            script(src='/js/jquery.min.js')
+            script(src='/js/uikit.min.js')
+            script(src='/js/uikit-icons.min.js')
+        else
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js')
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit-icons.min.js')
         
         block scripts

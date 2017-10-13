@@ -22,7 +22,7 @@ const checkLogin = async (ctx, next) => {
 // INDEX
 exports.index = async (ctx) => {
     ctx.state.dateFormat = require('dateformat');
-    
+
     const messages = ctx.session.messages || []; // get any messages saved in the session
     delete ctx.session.messages; // delete the messages as they've been delivered
 
@@ -45,7 +45,8 @@ exports.index = async (ctx) => {
             auth: ctx.isAuthenticated(),
             csrfToken: ctx.csrf,
             post: data,
-            body: body
+            body: body,
+            host: ctx.host
         });
 	}
 }
