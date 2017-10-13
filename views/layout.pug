@@ -1,56 +1,62 @@
 doctype html
 html(lang="en")
-  head
-    title= title
+    head
+        meta(http-equiv='content-type', content='text/html; charset=utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1')
+        if post
+            - var abstract = post.abstract
+        else if page
+            - var abstract = page.abstract
+        else
+            - var abstract = "Ensar.me"
+        meta(name='description', content=abstract)
 
-    //- UIKit
-    link(rel='stylesheet', href='/css/normalize.min.css')
-    link(rel='stylesheet', href='/css/uikit.min.css')
+        //- UIKit
+        link(rel='stylesheet', href='/css/normalize.min.css')
+        link(rel='stylesheet', href='/css/uikit.min.css')
 
-    //- Editor
-    link(rel='stylesheet', href='/css/simplemde.min.css')
+        //- Additional styles
+        link(rel='stylesheet', href='/css/style.css')
+        block head
 
-    //- Additional styles
-    link(rel='stylesheet', href='/css/style.css')
+    body
+        if auth
+            block edit
 
-  body
-    if auth
-        block edit
-
-    section.uk-section.uk-section-small.uk-padding-remove-bottom
-        section.uk-container.uk-container-small
-            nav.uk-navbar-container.uk-navbar-transparent.uk-padding-remove-bottom(uk-navbar)
-                div.uk-navbar-left
-                    ul.uk-navbar-nav
-                        li #[a(href="/" class="logo") ensar.me]
-
-
-                div.uk-navbar-right
-
-                    -menu = [ ["about", "/about/"], ["where", "/where/"], ["how", "/how/"], ["posts", "/posts/"], ["tags","/tags/"] ]
-                    ul.uk-navbar-nav
-                        each item in menu
-                            if path == item[1]
-                                li.uk-active #[a(href=item[1])=item[0]]
-                            else
-                                li #[a(href=item[1])=item[0]]
+        section.uk-section.uk-section-small.uk-padding-remove-bottom
+            section.uk-container.uk-container-small
+                nav.uk-navbar-container.uk-navbar-transparent.uk-padding-remove-bottom(uk-navbar)
+                    div.uk-navbar-left
+                        ul.uk-navbar-nav
+                            li #[a(href="/" class="logo") ensar.me]
 
 
-    section.uk-section.uk-section-small
-        section.uk-container.uk-container-small
-            section.uk-section.uk-section-default.main
-                header.uk-section.uk-section-medium.uk-text-center
-                    block header
+                    div.uk-navbar-right
 
-                block content
+                        -menu = [ ["about", "/about/"], ["where", "/where/"], ["how", "/how/"], ["posts", "/posts/"], ["tags","/tags/"] ]
+                        ul.uk-navbar-nav
+                            each item in menu
+                                if path == item[1]
+                                    li.uk-active #[a(href=item[1])=item[0]]
+                                else
+                                    li #[a(href=item[1])=item[0]]
 
-                footer.uk-section.uk-padding-remove-bottom.uk-text-
-                    block footer
 
-    //- script!= settingsdef
+        section.uk-section.uk-section-small
+            section.uk-container.uk-container-small
+                section.uk-section.uk-section-default.main
+                    header.uk-section.uk-section-medium.uk-text-center
+                        block header
 
-    script(src='/js/jquery.min.js')
-    script(src='/js/uikit.min.js')
-    script(src='/js/uikit-icons.min.js')
-    
-    block scripts
+                    block content
+
+                    footer.uk-section.uk-padding-remove-bottom.uk-text-
+                        block footer
+
+        //- script!= settingsdef
+
+        script(src='/js/jquery.min.js')
+        script(src='/js/uikit.min.js')
+        script(src='/js/uikit-icons.min.js')
+        
+        block scripts
