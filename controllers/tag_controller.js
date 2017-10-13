@@ -2,7 +2,6 @@ const Post = require('../models/post')
 
 const S = require('string');
 
-const markdown = require( "markdown" ).markdown;
 const helpers = require('./helpers');
 
 const reading_time = helpers.reading_time
