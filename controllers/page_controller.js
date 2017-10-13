@@ -2,7 +2,7 @@ const Page = require('../models/page')
 
 const S = require('string');
 
-const markdown = require( "markdown" ).markdown;
+var md = require('markdown-it')();
 const helpers = require('./helpers');
 
 const reading_time = helpers.reading_time
@@ -27,7 +27,7 @@ exports.index = async (ctx) => {
     delete ctx.session.messages; // delete the messages as they've been delivered
 
     const index = await Page.findOne({ slug: "index" })
-    if (index) {var data = index; var body = markdown.toHTML(data.body);}
+    if (index) {var data = index; var body = md.render(data.body);}
     else {var data = []; var body = []}
 
 	const pages = await Page.find({}).sort('-created')
@@ -145,7 +145,7 @@ exports.view = async (ctx) => {
             title: page.title,
             valerrors: ctx.errors,
             page: page,
-            body: markdown.toHTML(page.body),
+            body: md.render(page.body),
             timestamp: timestamp,
             messages: messages,
             path: "/",
