@@ -13,8 +13,8 @@ block edit
                 |  New
 
 block header
-    h1.uk-text-uppercase=title
-    p.headline=page.headline
+    - headline = page.headline || "Index of them all"
+    p.headline=headline
     p.abstract
         | #[strong Abstract.] #{page.abstract}
 

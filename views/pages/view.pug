@@ -11,7 +11,8 @@ block edit
                 |  New
 
 block header
-    h1.uk-text-uppercase=title
+    - headline = page.headline || ""
+    p.headline=headline
     p.abstract
         | #[strong Abstract.] #{page.abstract} | Reading time &asymp; #{readtime}
 

@@ -11,8 +11,7 @@ block edit
                 |  New
 
 block header
-    h1.uk-text-uppercase=title
-    p Written #{timestamp}
+    p.headline Written #{timestamp}
     p.abstract
         | #[strong Abstract.] #{post.abstract} | Reading time &asymp; #{readtime}
     if post.tags.length
