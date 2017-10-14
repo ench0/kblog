@@ -1,12 +1,5 @@
 extends ../layout
 
-block edit
-    if page.slug
-        div
-            a.uk-button.uk-button-default.uk-button-small.uk-position-top-left.uk-margin-left(href="/"+page.slug+"/edit?_csrf="+csrfToken)
-                span(uk-icon="icon: pencil; ratio: .75")
-                |  Edit
-
 block header
     - headline = page.headline || "Index of them all"
     p.headline=headline
@@ -48,3 +41,10 @@ block footer
     ol
         li Permalink: 
             a(href="/"+page.slug)=page.slug
+
+block edit
+    if page.slug
+        div
+            a.uk-button.uk-button-default.uk-button-small.uk-position-bottom-left.uk-margin-left(href="/"+page.slug+"/edit?_csrf="+csrfToken)
+                span(uk-icon="icon: pencil; ratio: .75")
+                |  Edit

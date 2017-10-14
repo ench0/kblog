@@ -1,9 +1,4 @@
 extends ../layout
-block edit
-    div
-        a.uk-button.uk-button-default.uk-button-small.uk-position-top-left.uk-margin-left(href="/"+page.slug+"/edit?_csrf="+csrfToken)
-            span(uk-icon="icon: pencil; ratio: .75")
-            |  Edit
 
 block header
     - headline = page.headline || ""
@@ -34,3 +29,13 @@ block footer
     ol
         li Permalink: 
             a(href="/pages/"+page.slug) #{page.slug}
+
+block edit
+    div
+        a.uk-button.uk-button-default.uk-button-small.uk-position-bottom-left.uk-margin-left(href="/"+page.slug+"/edit?_csrf="+csrfToken)
+            span(uk-icon="icon: pencil; ratio: .75")
+            |  Edit
+    div
+        a.uk-button.uk-button-default.uk-button-small.uk-position-bottom-right.uk-margin-right(href="/new?_csrf="+csrfToken)
+            span(uk-icon="icon: plus; ratio: .75")
+            |  New

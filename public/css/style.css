@@ -47,7 +47,7 @@ h6 { font-size: 1rem;}
 
 
 .uk-navbar-nav > li > a {
-    height: 20px;
+    height: 40px;
     font-family: cursive;
     text-transform: lowercase;
     font-size: .75rem;
@@ -61,7 +61,7 @@ h6 { font-size: 1rem;}
     color: #666;
     border-bottom: 1px dotted #666;
 }
-ul.uk-navbar-nav a, ul.uk-navbar-nav a:hover {
+ul.uk-navbar-nav a, ul.uk-navbar-nav a:hover, .uk-navbar-toggle:hover {
     border: none;
 }
 a.uk-button:hover {
@@ -85,8 +85,11 @@ img {
     /* color: blue; */
 }
 
-
-
+#sticky {
+    background-color: transparent;
+    /* height: 20px; */
+    transition: transform 1s, background-color 1s, box-shadow 1s, width 0.3s ease-out;
+}
 
 @media (min-width:640px){
     .uk-form-horizontal .uk-form-label {
@@ -107,3 +110,6 @@ img {
         font-size: 1.2rem;
     }
 }
+
+  background-color: transparent;
+  transition: transform 0.3s, background-color 0.5s, width 0.3s ease-out;

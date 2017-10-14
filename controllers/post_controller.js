@@ -22,7 +22,7 @@ const checkLogin = async (ctx, next) => {
 // INDEX
 exports.index = async (ctx) => {
     ctx.state.dateFormat = require('dateformat');
-        
+    
     const messages = ctx.session.messages || []; // get any messages saved in the session
     delete ctx.session.messages; // delete the messages as they've been delivered
 
@@ -155,11 +155,6 @@ exports.create = async (ctx) => {
 exports.view = async (ctx) => {
     const slug = ctx.params.slug;
     const post = await Post.findOne({ slug: slug })
-
-    
-    console.log(ctx.router.url('view',slug))
-    console.log(ctx.router.stack.map(i => i.path));
-    console.log(ctx.router.path);
     
 	if (!post) {
         console.log("ERROR!")

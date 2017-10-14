@@ -28,29 +28,51 @@ html(lang="en")
         block head
 
     body
-        if auth
-            div.uk-position-fixed.uk-width-1-1
-                block edit
-                div
-                    a.uk-button.uk-button-default.uk-button-small.uk-position-top-center.uk-margin-right(href="/auth")
-                        span(uk-icon="icon: plus; ratio: .75")
-                        |  Auth
-                    a.uk-button.uk-button-default.uk-button-small.uk-position-top-right.uk-margin-right(href="/"+path+"new?_csrf="+csrfToken)
-                        span(uk-icon="icon: plus; ratio: .75")
-                        |  New
+        div.uk-offcanvas-content.uk-height-viewport.uk-section-muted
 
-        section.uk-section.uk-section-small.uk-padding-remove-bottom
-            section.uk-container.uk-container-small
-                nav.uk-navbar-container.uk-navbar-transparent.uk-padding-remove-bottom(uk-navbar)
-                    div.uk-navbar-left
-                        ul.uk-navbar-nav
-                            li #[a(href="/" class="logo") ensar.me]
+            section.uk-section.uk-section-small.uk-padding-remove-bottom
+                section(uk-sticky='bottom: #offset')
+                    section#sticky.uk-container.uk-container-small.uk-section-muted
 
 
-                    div.uk-navbar-right
 
-                        -menu = [ ["about", "page"], ["where", "page"], ["how", "page"], ["posts", "post"], ["tags","tag"] ]
-                        ul.uk-navbar-nav
+                        // menu
+                        nav#menu.uk-navbar-container.uk-navbar-transparent.uk-padding-remove-bottom(class='uk-visible@m', uk-navbar='')
+                            .uk-navbar-left.uk-navbar-transparent
+                                ul.uk-navbar-nav
+                                    li #[a(href="/" class="logo") ensar.me]
+
+                            .uk-navbar-right.uk-navbar-transparent
+
+                                -menu = [ ["about", "page"], ["where", "page"], ["how", "page"], ["posts", "post"], ["tags","tag"] ]
+                                ul.uk-navbar-nav
+                                    each item in menu
+                                        if pagetype == item[1]
+                                            if item[1] == "page"
+                                                if item[0] == page.slug
+                                                    li.uk-active #[a(href="/"+item[0])=item[0]]
+                                                else
+                                                    li #[a(href="/"+item[0])=item[0]]
+                                            else
+                                                li.uk-active #[a(href="/"+item[1]+"s")=item[0]]
+                                        else
+                                            li #[a(href="/"+item[0])=item[0]]
+
+
+                        // mobile nav
+                        nav#menumob.uk-navbar.uk-navbar-container.uk-navbar-transparent.uk-padding-remove-bottom(class='uk-hidden@m')
+                            .uk-navbar-left.uk-navbar-transparent
+                                a.uk-navbar-toggle(style='height: 40px;', uk-navbar-toggle-icon='', uk-toggle='target: #offcanvas-push', href='#')
+                            |       
+                            .uk-navbar-right.uk-navbar-transparent
+                                ul.uk-navbar-nav
+                                    li #[a(href="/" class="logo") ensar.me]
+
+                // offcanvas
+                #offcanvas-push(uk-offcanvas='mode: push; overlay: true')
+                    .uk-offcanvas-bar
+                        h2 Menu
+                        ul.uk-nav
                             each item in menu
                                 if pagetype == item[1]
                                     if item[1] == "page"
@@ -64,26 +86,52 @@ html(lang="en")
                                     li #[a(href="/"+item[0])=item[0]]
 
 
-        section.uk-section.uk-section-small
-            section.uk-container.uk-container-small
-                section.uk-section.uk-section-default.main
-                    header.uk-section.uk-section-medium.uk-text-center
-                        h1.uk-heading-primary=title
-                        block header
-                    block content
 
-                    footer.uk-section.uk-padding-remove-bottom.uk-text-
-                        block footer
 
-        //- script!= settingsdef
 
-        if (process.env.NODE_ENV == "dev")
-            script(src='/js/jquery.min.js')
-            script(src='/js/uikit.min.js')
-            script(src='/js/uikit-icons.min.js')
-        else
-            script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-            script(src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js')
-            script(src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit-icons.min.js')
-        
-        block scripts
+
+
+            section.uk-section.uk-section-small
+                section.uk-container.uk-container-small
+                    section.uk-section.uk-section-default.main
+                        header.uk-section.uk-section-medium.uk-text-center
+                            h1.uk-heading-primary=title
+                            block header
+                        block content
+
+                        footer.uk-section.uk-padding-remove-bottom.uk-text-
+                            block footer
+
+            //- Edit block
+            if auth
+                div.uk-position-fixed.uk-width-1-1.uk-position-bottom.uk-margin
+                    block edit
+                    div
+                        a.uk-button.uk-button-default.uk-button-small.uk-position-bottom-center.uk-margin-right(href="/auth")
+                            span(uk-icon="icon: user; ratio: .75")
+                            |  Auth
+                        a.uk-button.uk-button-default.uk-button-small.uk-position-bottom-right.uk-margin-right(href="/"+path+"new?_csrf="+csrfToken)
+                            span(uk-icon="icon: plus; ratio: .75")
+                            |  New
+
+
+            //- script!= settingsdef
+
+            if (process.env.NODE_ENV == "dev")
+                script(src='/js/jquery.min.js')
+                script(src='/js/uikit.min.js')
+                script(src='/js/uikit-icons.min.js')
+            else
+                script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+                script(src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit.min.js')
+                script(src='https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-beta.30/js/uikit-icons.min.js')
+            
+            block scripts
+
+
+            //- sticky menu
+            script.
+                $(document).scroll(function() {
+                    $('#sticky').css({"box-shadow": $(this).scrollTop() > 40? "0 3px 3px rgba(0, 0, 0, .25)":"none",
+                        "background-color": $(this).scrollTop() > 40? "rgba(255,255,255,.85)":"transparent"});
+                });

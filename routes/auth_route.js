@@ -15,6 +15,14 @@ router
     if (ctx.isAuthenticated()) ctx.session.messages = {success: ["You are logged in!"]}
     
 
+    console.log(ctx.request.path, ctx.request.href, ctx.request.url, ctx.request.host, ctx.request.hostname, ctx.request.ip, ctx.request.ips, ctx.request.origin, ctx.request.originalUrl, ctx.request.header)
+    
+    
+    // console.log(ctx.router.url('view',slug))
+    // console.log(ctx.router.stack.map(i => i.path));
+    // console.log(ctx.router.path);
+
+
     const messages = ctx.session.messages || [];
     delete ctx.session.messages;
 //   var body = fs.readFileSync('views/login.html', 'utf8')

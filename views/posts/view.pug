@@ -1,9 +1,4 @@
 extends ../layout
-block edit
-    div
-        a.uk-button.uk-button-default.uk-button-small.uk-position-top-left.uk-margin-left(href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)
-            span(uk-icon="icon: pencil; ratio: .75")
-            |  Edit
 
 block header
     p.headline Written #{timestamp}
@@ -40,3 +35,9 @@ block footer
     ol
         li Permalink: 
             a(href="/posts/"+post.slug) #{post.slug}
+
+block edit
+    div
+        a.uk-button.uk-button-default.uk-button-small.uk-position-bottom-left.uk-margin-left(href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)
+            span(uk-icon="icon: pencil; ratio: .75")
+            |  Edit
