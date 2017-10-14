@@ -110,6 +110,3 @@ img {
         font-size: 1.2rem;
     }
 }
-
-  background-color: transparent;
-  transition: transform 0.3s, background-color 0.5s, width 0.3s ease-out;
