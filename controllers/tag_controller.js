@@ -22,6 +22,9 @@ exports.index = async (ctx) => {
 	if (!tags) {
 		throw new Error("There was an error retrieving your posts.")
 	} else {
+        ctx.status = 200
+        ctx.state.pagetype = "tag"
+
         return ctx.render("tags/index", {
             title: 'Tags',
             tags: tags.sort(),
@@ -42,6 +45,9 @@ exports.view = async (ctx) => {
 	if (!tag) {
 		throw new Error("There was an error retrieving your tasks.")
 	} else {
+        ctx.status = 200
+        ctx.state.pagetype = "tag"
+        
         return ctx.render("tags/view", {
             title: tag,
             valerrors: ctx.errors,

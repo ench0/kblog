@@ -22,7 +22,7 @@ const checkLogin = async (ctx, next) => {
 // INDEX
 exports.index = async (ctx) => {
     ctx.state.dateFormat = require('dateformat');
-    
+        
     const messages = ctx.session.messages || []; // get any messages saved in the session
     delete ctx.session.messages; // delete the messages as they've been delivered
 
@@ -38,6 +38,9 @@ exports.index = async (ctx) => {
 	if (!posts) {
 		throw new Error("There was an error retrieving your posts.")
 	} else {
+        ctx.status = 200
+        ctx.state.pagetype = "post"
+        
         return ctx.render("posts/index", {
             title: 'List of Posts',
             posts: posts,
@@ -57,6 +60,9 @@ exports.new = async (ctx) => {
     ctx.params._csrf = ctx.csrf;
     
     var post = []
+
+    ctx.status = 200
+    ctx.state.pagetype = "post"
 
     return ctx.render("posts/new", {
         title: 'New post',
@@ -94,6 +100,9 @@ exports.create = async (ctx) => {
 
     if (ctx.errors) {
 
+        ctx.status = 226
+        ctx.state.pagetype = "post"
+
         console.log(ctx.errors)
         return ctx.render("posts/new", {
             title: 'New post',
@@ -125,6 +134,10 @@ exports.create = async (ctx) => {
             console.log("CATCHED UPDATE ERR!")
             console.log(err)
             if (err.name === 'MongoError' && err.code === 11000) var error = "Duplicate entry -  "+S(err.message).between('dup key: { : ', '}').s
+
+            ctx.status = 102
+            ctx.state.pagetype = "post"
+
             return ctx.render("posts/edit", {
                 title: 'Edit post',
                 csrfToken: data._csrf,
@@ -143,8 +156,11 @@ exports.view = async (ctx) => {
     const slug = ctx.params.slug;
     const post = await Post.findOne({ slug: slug })
 
-    console.log(post)
-
+    
+    console.log(ctx.router.url('view',slug))
+    console.log(ctx.router.stack.map(i => i.path));
+    console.log(ctx.router.path);
+    
 	if (!post) {
         console.log("ERROR!")
         return ctx.redirect('/404');        
@@ -155,6 +171,9 @@ exports.view = async (ctx) => {
         
         const messages = ctx.session.messages || []; // get any messages saved in the session    
         delete ctx.session.messages; // delete the messages as they've been delivered
+
+        ctx.status = 200
+        ctx.state.pagetype = "post"
 
         return ctx.render("posts/view", {
             title: post.title,
@@ -183,7 +202,10 @@ exports.edit = async (ctx) => {
         ctx.redirect('/404/');        
         throw new Error("There was an error retrieving your tasks.")
 	} else {
+        ctx.status = 200
+        ctx.state.pagetype = "post"
         ctx.body = ctx.csrf
+
         return ctx.render("posts/edit", {
             title: post.title,
             csrfToken: ctx.csrf,
@@ -224,6 +246,10 @@ exports.update = async (ctx) => {
 
         console.log("CTX ERRORS")
         console.log(ctx.errors)
+
+        ctx.status = 226
+        ctx.state.pagetype = "post"
+
         return ctx.render("posts/edit", {
             title: 'Edit post',
             csrfToken: ctx.csrf,
@@ -272,6 +298,10 @@ exports.update = async (ctx) => {
             console.log("CATCHED UPDATE ERR!")
             console.log(err)
             if (err.name === 'MongoError' && err.code === 11000) var error = "Duplicate entry -  "+S(err.message).between('dup key: { : ', '}').s
+
+            ctx.status = 102
+            ctx.state.pagetype = "post"
+
             return ctx.render("posts/edit", {
                 title: 'Edit post',
                 duperror: error,

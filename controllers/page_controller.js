@@ -34,6 +34,9 @@ exports.index = async (ctx) => {
 	if (!pages) {
 		throw new Error("There was an error retrieving your pages.")
 	} else {
+        ctx.status = 200
+        ctx.state.pagetype = "page"
+
         return ctx.render("pages/index", {
             title: data.title || 'List of Pages',
             pages: pages,
@@ -54,6 +57,9 @@ exports.new = async (ctx) => {
     ctx.params._csrf = ctx.csrf;
     
     var page = []
+
+    ctx.status = 200
+    ctx.state.pagetype = "page"
 
     return ctx.render("pages/new", {
         title: 'New page',
@@ -84,6 +90,9 @@ exports.create = async (ctx) => {
     if (ctx.errors) {
 
         console.log(ctx.errors)
+        ctx.status = 226
+        ctx.state.pagetype = "page"
+
         return ctx.render("pages/new", {
             title: 'New page',
             csrfToken: data._csrf,
@@ -114,6 +123,10 @@ exports.create = async (ctx) => {
             console.log("CATCHED UPDATE ERR!")
             console.log(err)
             if (err.name === 'MongoError' && err.code === 11000) var error = "Duplicate entry -  "+S(err.message).between('dup key: { : ', '}').s
+
+            ctx.status = 102
+            ctx.state.pagetype = "page"
+            
             return ctx.render("pages/edit", {
                 title: 'Edit page',
                 csrfToken: data._csrf,
@@ -141,6 +154,9 @@ exports.view = async (ctx) => {
         const messages = ctx.session.messages || []; // get any messages saved in the session    
         delete ctx.session.messages; // delete the messages as they've been delivered
 
+        ctx.status = 200
+        ctx.state.pagetype = "page"
+
         return ctx.render("pages/view", {
             title: page.title,
             valerrors: ctx.errors,
@@ -167,7 +183,10 @@ exports.edit = async (ctx) => {
 	if (!page) {
 		throw new Error("There was an error retrieving your tasks.")
 	} else {
+        ctx.status = 200
+        ctx.state.pagetype = "page"
         ctx.body = ctx.csrf
+
         return ctx.render("pages/edit", {
             title: page.title,
             csrfToken: ctx.csrf,
@@ -198,6 +217,9 @@ exports.update = async (ctx) => {
 
         console.log("CTX ERRORS")
         console.log(ctx.errors)
+        ctx.status = 226
+        ctx.state.pagetype = "page"
+
         return ctx.render("pages/edit", {
             title: 'Edit page',
             csrfToken: ctx.csrf,
@@ -245,6 +267,10 @@ exports.update = async (ctx) => {
             console.log("CATCHED UPDATE ERR!")
             console.log(err)
             if (err.name === 'MongoError' && err.code === 11000) var error = "Duplicate entry -  "+S(err.message).between('dup key: { : ', '}').s
+
+            ctx.status = 102
+            ctx.state.pagetype = "page"
+
             return ctx.render("pages/edit", {
                 title: 'Edit page',
                 duperror: error,

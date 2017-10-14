@@ -49,13 +49,19 @@ html(lang="en")
 
                     div.uk-navbar-right
 
-                        -menu = [ ["about", "/about/"], ["where", "/where/"], ["how", "/how/"], ["posts", "/posts/"], ["tags","/tags/"] ]
+                        -menu = [ ["about", "page"], ["where", "page"], ["how", "page"], ["posts", "post"], ["tags","tag"] ]
                         ul.uk-navbar-nav
                             each item in menu
-                                if path == item[1]
-                                    li.uk-active #[a(href=item[1])=item[0]]
+                                if pagetype == item[1]
+                                    if item[1] == "page"
+                                        if item[0] == page.slug
+                                            li.uk-active #[a(href="/"+item[0])=item[0]]
+                                        else
+                                            li #[a(href="/"+item[0])=item[0]]
+                                    else
+                                        li.uk-active #[a(href="/"+item[1]+"s")=item[0]]
                                 else
-                                    li #[a(href=item[1])=item[0]]
+                                    li #[a(href="/"+item[0])=item[0]]
 
 
         section.uk-section.uk-section-small

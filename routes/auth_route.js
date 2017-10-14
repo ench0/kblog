@@ -19,6 +19,9 @@ router
     delete ctx.session.messages;
 //   var body = fs.readFileSync('views/login.html', 'utf8')
 //   ctx.body = body.replace('{csrfToken}', ctx.csrf)
+    ctx.status = 200
+    ctx.state.pagetype = "auth"
+
     return ctx.render("auth/index", {
         title: 'Login area',
         messages: messages,
