@@ -19,7 +19,12 @@ block content
         p(uk-margin)
             a.uk-button.uk-button-primary(href="/auth/logout") Logout
             a.uk-button.uk-button-secondary(href="/auth/update/") Update
-            a.uk-button.uk-button-danger(href="/auth/reset/") Git Reset
+
+            button.uk-button.uk-button-danger
+                i(uk-icon="icon: ban; ratio: .75")
+                |   Git Reset
+            div(uk-drop="mode: click; pos: right-center")
+                    a.uk-button.uk-button-danger(href="/auth/reset/") Confirm
 
 
         div#div1
