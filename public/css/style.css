@@ -55,21 +55,16 @@ h6 { font-size: 1rem;}
     text-transform: lowercase;
     /* font-size: .75rem; */
 }
-.uk-link, a {
+#content .uk-link, #content .uk-link a, #content a {
     color: #666;
     border-bottom: 1px dotted #999;
 }
-.uk-link:hover, a:hover {
+#content .uk-link:hover, #content a:hover {
     text-decoration: none;
     color: #6b1f2c;
     border-bottom: 1px dotted #6b1f2c;
 }
-ul.uk-navbar-nav a, ul.uk-navbar-nav a:hover, .uk-navbar-toggle:hover {
-    border: none;
-}
-a.uk-button:hover {
-    border-bottom: 1px solid #999;
-}
+
 img {
     filter: 
     /* blur(1px)  */

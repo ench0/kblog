@@ -34,7 +34,7 @@ html(lang="en")
                 section#sticky(uk-sticky='bottom: #offset')
                     section.uk-container.uk-container-small
 
-                        // menu
+                        //- menu
                         nav#menu.uk-navbar-container.uk-navbar-transparent.uk-padding-remove-bottom(class='uk-visible@m', uk-navbar='')
                             .uk-navbar-left.uk-navbar-transparent
                                 ul.uk-navbar-nav
@@ -57,7 +57,7 @@ html(lang="en")
                                             li #[a(href="/"+item[0])=item[0]]
 
 
-                        // mobile nav
+                        //- mobile nav
                         nav#menumob.uk-navbar.uk-navbar-container.uk-navbar-transparent.uk-padding-remove-bottom(class='uk-hidden@m')
                             .uk-navbar-left.uk-navbar-transparent
                                 a.uk-navbar-toggle(style='height: 40px;', uk-navbar-toggle-icon='', uk-toggle='target: #offcanvas-push', href='#')
@@ -66,7 +66,7 @@ html(lang="en")
                                 ul.uk-navbar-nav
                                     li #[a(href="/" class="logo") ensar.me]
 
-                // offcanvas
+                //- offcanvas
                 #offcanvas-push(uk-offcanvas='mode: push; overlay: true')
                     .uk-offcanvas-bar
                         h2 Menu
@@ -92,16 +92,17 @@ html(lang="en")
             section.uk-section.uk-section-small
                 section.uk-container.uk-container-small
                     section.uk-section.uk-section-default.main
-                        header.uk-section.uk-section-medium.uk-text-center.uk-padding-small
+                        header#content.uk-section.uk-section-medium.uk-text-center.uk-padding-small
                             h1.uk-heading-primary=title
                             block header
 
                         include ./messages
-                        div.uk-section.uk-section-xsmall.uk-text-justify(class="uk-column-1-1@m")
+                        section#content.uk-section.uk-section-xsmall.uk-text-justify(class="uk-column-1-1@m")
                             !=body
-                        block content
+                        section#content
+                            block content
 
-                        footer.uk-section.uk-padding-remove-bottom.uk-text-
+                        footer#content.uk-section.uk-padding-remove-bottom.uk-text-
                             block footer
 
             //- Edit block
