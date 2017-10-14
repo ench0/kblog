@@ -26,7 +26,7 @@ em {
 }
 
 .comma:not(:first-child) {
-    margin-left: -.3em;  
+    margin-left: -.3rem;  
 }
 /* no need to display empty elements */
 .comma:empty {
@@ -57,12 +57,12 @@ h6 { font-size: 1rem;}
 }
 .uk-link, a {
     color: #666;
-    border-bottom: 1px dotted #ccc;
+    border-bottom: 1px dotted #999;
 }
 .uk-link:hover, a:hover {
     text-decoration: none;
-    color: #666;
-    border-bottom: 1px dotted #666;
+    color: #6b1f2c;
+    border-bottom: 1px dotted #6b1f2c;
 }
 ul.uk-navbar-nav a, ul.uk-navbar-nav a:hover, .uk-navbar-toggle:hover {
     border: none;
@@ -85,6 +85,7 @@ img {
     font-family: cursive;
     font-size: 1rem;
     text-transform: lowercase;
+    color:#666;
     /* color: blue; */
 }
 

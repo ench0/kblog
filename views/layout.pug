@@ -32,7 +32,7 @@ html(lang="en")
 
             section.uk-section.uk-section-small.uk-padding-remove-bottom
                 section#sticky(uk-sticky='bottom: #offset')
-                    section.uk-container.uk-container-small.uk-section-muted
+                    section.uk-container.uk-container-small
 
                         // menu
                         nav#menu.uk-navbar-container.uk-navbar-transparent.uk-padding-remove-bottom(class='uk-visible@m', uk-navbar='')
@@ -135,5 +135,9 @@ html(lang="en")
             script.
                 $(document).scroll(function() {
                     $('#sticky').css({"box-shadow": $(this).scrollTop() > 40? "0 3px 3px rgba(0, 0, 0, .25)":"none",
-                        "background-color": $(this).scrollTop() > 40? "rgba(255,255,255,.85)":"transparent"});
+                        "background-color": $(this).scrollTop() > 40? "rgba(248,248,248,.75)":"transparent"});
                 });
+                console.log($(document).scrollTop())
+                if ($(document).scrollTop() > 40) {
+                    $('#sticky').css({"box-shadow": "0 3px 3px rgba(0, 0, 0, .25)", "background-color": "rgba(248,248,248,.75)"}) 
+                }
