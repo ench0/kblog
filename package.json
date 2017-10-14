@@ -1,0 +1,61 @@
+{
+  "name": "kblog",
+  "author": "Ensar <ensarh@gmail.com>",
+  "version": "0.1.0",
+  "private": true,
+  "keywords": [
+    "koa",
+    "passport",
+    "blog"
+  ],
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node app.js",
+    "go": "cross-env NODE_ENV=production node app",
+    "dev": "cross-env NODE_ENV=production PORT=3000 nodemon -e js,css,pug,json",
+    "dev2": "node-supervisor -e 'node,js,css,pug,json' ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/ench0/kblog",
+  "dependencies": {
+    "await-delay": "^1.0.0",
+    "dateformat": "^3.0.2",
+    "fs-extra": "^4.0.2",
+    "handlebars": "^4.0.6",
+    "koa": "^2.0.0-alpha.7",
+    "koa-body": "^2.5.0",
+    "koa-bodyparser": "^3.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-csrf": "^3.0.4",
+    "koa-favicon": "^2.0.0",
+    "koa-generic-session": "^1.11.4",
+    "koa-generic-session-mongo": "^0.3.0",
+    "koa-logger": "^3.1.0",
+    "koa-mount": "^3.0.0",
+    "koa-passport": "^3.0.0-rc.2",
+    "koa-route": "^3.2.0",
+    "koa-router": "^7.2.1",
+    "koa-static": "^4.0.1",
+    "koa-validate": "^1.0.7",
+    "koa-views": "^6.1.1",
+    "markdown-it": "^8.4.0",
+    "mongoose": "^4.7.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-auth": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4",
+    "pug": "^2.0.0-rc.4",
+    "sharp": "^0.18.4",
+    "shelljs": "^0.7.8",
+    "string": "^3.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ench0/kblog.git"
+  },
+  "engines": {
+    "node": ">= 7"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.5"
+  }
+}
