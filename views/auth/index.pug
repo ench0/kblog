@@ -33,12 +33,15 @@ block content
                         span(uk-icon="icon: check; ratio: .75")
                         |  Log in
         else
-            div
-                a(href="/auth/logout") Logout
-            div
-                a(href="/auth/update/") Update
-            div
-                a(href="/auth/reload/") Reload
+            p(uk-margin)
+                a.uk-button.uk-button-primary(href="/auth/logout") Logout
+                a.uk-button.uk-button-secondary(href="/auth/update/") Update
+    
+                button.uk-button.uk-button-danger
+                    i(uk-icon="icon: ban; ratio: .75")
+                    |   Git Reset
+                div(uk-drop="mode: click; pos: right-center")
+                     a.uk-button.uk-button-danger(href="/auth/reset/") Confirm
 
 block footer
     ol

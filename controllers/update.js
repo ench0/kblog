@@ -39,3 +39,21 @@ exports.reload = async (ctx) => {
         messages: [reloadpm2.stdout, reloadpm2.stderr]
     });
 }
+
+exports.gitreset = async (ctx) => {
+    
+    checkLogin(ctx)
+    console.log("logged in")
+    shell.exec(cd)
+    
+    const git = []
+    git.fetch = shell.exec('git fetch --all')
+    git.reset = shell.exec('git reset --hard origin/master')
+    git.pull = shell.exec('git pull')
+    
+    return ctx.render("pages/update", {
+        title: "Git Hard Reset",
+        messages: [git.fetch.stdout, git.fetch.stderr, git.reset.stdout, git.reset.stderr, git.pull.stdout, git.pull.stderr]
+    });
+}
+
