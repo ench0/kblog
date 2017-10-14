@@ -92,9 +92,13 @@ html(lang="en")
             section.uk-section.uk-section-small
                 section.uk-container.uk-container-small
                     section.uk-section.uk-section-default.main
-                        header.uk-section.uk-section-medium.uk-text-center
+                        header.uk-section.uk-section-medium.uk-text-center.uk-padding-small
                             h1.uk-heading-primary=title
                             block header
+
+                        include ./messages
+                        div.uk-section.uk-section-xsmall.uk-text-justify(class="uk-column-1-1@m")
+                            !=body
                         block content
 
                         footer.uk-section.uk-padding-remove-bottom.uk-text-
