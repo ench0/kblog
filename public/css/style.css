@@ -6,7 +6,7 @@ html, body {
 }
 .main {
     border: 1px solid #ddd;
-    background: url(img/bg-paper.jpg);
+    background: url("img/bg-paper.jpg");
     background-size: 255px 180px;/*85x60,255x180,orig425x300*/
     padding:2em;
     box-shadow: 1px 1px 5px rgba(10, 10, 10, .25);
@@ -77,6 +77,8 @@ img {
     saturate(1)
     contrast(1.25)
     sepia(25%);
+    border: 2em solid #fff;
+    box-shadow: 1px 1px 3px rgba(10, 10, 10, .25)
 }
 .headline {
     font-family: Courier New, Courier, monospace;

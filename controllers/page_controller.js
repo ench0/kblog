@@ -58,7 +58,8 @@ exports.new = async (ctx) => {
     ctx.params._csrf = ctx.csrf;
     
     var page = []
-
+    const messages = []
+    
     ctx.status = 200
     ctx.state.pagetype = "page"
     ctx.state.envvar = process.env.NODE_ENV 
@@ -67,7 +68,8 @@ exports.new = async (ctx) => {
         title: 'New page',
         path: "/",
         page: page,
-        csrfToken: ctx.csrf
+        csrfToken: ctx.csrf,
+        messages: messages
     });
 	
 }
@@ -181,7 +183,9 @@ exports.view = async (ctx) => {
 exports.edit = async (ctx) => {
     checkLogin(ctx)
     
-    const csrfToken = ctx.csrf;    
+    const csrfToken = ctx.csrf; 
+    const messages = []
+    
     console.log(ctx.isAuthenticated())
     const slug = ctx.params.slug;
 	const page = await Page.findOne({ slug: slug })
@@ -199,7 +203,8 @@ exports.edit = async (ctx) => {
             valerrors: ctx.errors,
             page: page,
             path: "/",
-            csrfToken: ctx.csrf
+            csrfToken: ctx.csrf,
+            messages: messages
         });
 	}
 }

@@ -61,6 +61,7 @@ exports.new = async (ctx) => {
     ctx.params._csrf = ctx.csrf;
     
     var post = []
+    const messages = []
 
     ctx.status = 200
     ctx.state.pagetype = "post"
@@ -70,7 +71,8 @@ exports.new = async (ctx) => {
         title: 'New post',
         path: "/posts/",
         post: post,
-        csrfToken: ctx.csrf
+        csrfToken: ctx.csrf,
+        messages: messages
     });
 	
 }
@@ -195,6 +197,8 @@ exports.edit = async (ctx) => {
     checkLogin(ctx)
     
     const csrfToken = ctx.csrf;    
+    const messages = []
+    
     console.log(ctx.isAuthenticated())
     const slug = ctx.params.slug;
 	const post = await Post.findOne({ slug: slug })
@@ -214,7 +218,8 @@ exports.edit = async (ctx) => {
             post: post,
             tags: post.tags.toString(),
             path: "/posts/",
-            csrfToken: ctx.csrf
+            csrfToken: ctx.csrf,
+            messages: messages
         });
 	}
 }
