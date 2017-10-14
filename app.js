@@ -18,6 +18,21 @@ app.use(logger())
 
 
 
+async function responseTime(ctx, next) {
+
+    const start = Date.now();
+    await next();
+    const ms = Date.now() - start;
+    ctx.set('X-Response-Time', `${ms}ms`);
+    const envvar = process.env.NODE_ENV
+    ctx.state.envvar = process.env.NODE_ENV
+    console.log(envvar, ctx.state.envvar)
+    
+}
+  
+  app.use(responseTime);
+
+
 
 /*
 	Server Config

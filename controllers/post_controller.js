@@ -40,7 +40,8 @@ exports.index = async (ctx) => {
 	} else {
         ctx.status = 200
         ctx.state.pagetype = "post"
-        
+        ctx.state.envvar = process.env.NODE_ENV
+
         return ctx.render("posts/index", {
             title: 'List of Posts',
             posts: posts,
@@ -63,6 +64,7 @@ exports.new = async (ctx) => {
 
     ctx.status = 200
     ctx.state.pagetype = "post"
+    ctx.state.envvar = process.env.NODE_ENV 
 
     return ctx.render("posts/new", {
         title: 'New post',
@@ -102,6 +104,7 @@ exports.create = async (ctx) => {
 
         ctx.status = 226
         ctx.state.pagetype = "post"
+        ctx.state.envvar = process.env.NODE_ENV 
 
         console.log(ctx.errors)
         return ctx.render("posts/new", {
@@ -137,7 +140,8 @@ exports.create = async (ctx) => {
 
             ctx.status = 102
             ctx.state.pagetype = "post"
-
+            ctx.state.envvar = process.env.NODE_ENV 
+            
             return ctx.render("posts/edit", {
                 title: 'Edit post',
                 csrfToken: data._csrf,
@@ -169,7 +173,8 @@ exports.view = async (ctx) => {
 
         ctx.status = 200
         ctx.state.pagetype = "post"
-
+        ctx.state.envvar = process.env.NODE_ENV 
+        
         return ctx.render("posts/view", {
             title: post.title,
             valerrors: ctx.errors,
@@ -200,7 +205,8 @@ exports.edit = async (ctx) => {
         ctx.status = 200
         ctx.state.pagetype = "post"
         ctx.body = ctx.csrf
-
+        ctx.state.envvar = process.env.NODE_ENV 
+        
         return ctx.render("posts/edit", {
             title: post.title,
             csrfToken: ctx.csrf,
@@ -244,7 +250,8 @@ exports.update = async (ctx) => {
 
         ctx.status = 226
         ctx.state.pagetype = "post"
-
+        ctx.state.envvar = process.env.NODE_ENV 
+        
         return ctx.render("posts/edit", {
             title: 'Edit post',
             csrfToken: ctx.csrf,
@@ -296,7 +303,8 @@ exports.update = async (ctx) => {
 
             ctx.status = 102
             ctx.state.pagetype = "post"
-
+            ctx.state.envvar = process.env.NODE_ENV 
+            
             return ctx.render("posts/edit", {
                 title: 'Edit post',
                 duperror: error,

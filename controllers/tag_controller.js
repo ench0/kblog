@@ -24,7 +24,8 @@ exports.index = async (ctx) => {
 	} else {
         ctx.status = 200
         ctx.state.pagetype = "tag"
-
+        ctx.state.envvar = process.env.NODE_ENV 
+        
         return ctx.render("tags/index", {
             title: 'Tags',
             tags: tags.sort(),
@@ -47,6 +48,7 @@ exports.view = async (ctx) => {
 	} else {
         ctx.status = 200
         ctx.state.pagetype = "tag"
+        ctx.state.envvar = process.env.NODE_ENV 
         
         return ctx.render("tags/view", {
             title: tag,

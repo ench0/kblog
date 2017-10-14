@@ -11,8 +11,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node app.js",
     "go": "cross-env NODE_ENV=production node app",
-    "dev": "cross-env NODE_ENV=production PORT=3000 nodemon -e js,css,pug,json",
-    "dev2": "node-supervisor -e 'node,js,css,pug,json' ./app.js",
+    "dev": "NODE_ENV=dev nodemon -e js,css,pug,json",
+    "dev2": "PORT=3000 node-supervisor -e 'node,js,css,pug,json' ./app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "homepage": "https://github.com/ench0/kblog",

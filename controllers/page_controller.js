@@ -36,7 +36,8 @@ exports.index = async (ctx) => {
 	} else {
         ctx.status = 200
         ctx.state.pagetype = "page"
-
+        ctx.state.envvar = process.env.NODE_ENV 
+        
         return ctx.render("pages/index", {
             title: data.title || 'List of Pages',
             pages: pages,
@@ -60,7 +61,8 @@ exports.new = async (ctx) => {
 
     ctx.status = 200
     ctx.state.pagetype = "page"
-
+    ctx.state.envvar = process.env.NODE_ENV 
+    
     return ctx.render("pages/new", {
         title: 'New page',
         path: "/",
@@ -92,7 +94,8 @@ exports.create = async (ctx) => {
         console.log(ctx.errors)
         ctx.status = 226
         ctx.state.pagetype = "page"
-
+        ctx.state.envvar = process.env.NODE_ENV 
+        
         return ctx.render("pages/new", {
             title: 'New page',
             csrfToken: data._csrf,
@@ -126,6 +129,7 @@ exports.create = async (ctx) => {
 
             ctx.status = 102
             ctx.state.pagetype = "page"
+            ctx.state.envvar = process.env.NODE_ENV 
             
             return ctx.render("pages/edit", {
                 title: 'Edit page',
@@ -156,7 +160,8 @@ exports.view = async (ctx) => {
 
         ctx.status = 200
         ctx.state.pagetype = "page"
-
+        ctx.state.envvar = process.env.NODE_ENV 
+        
         return ctx.render("pages/view", {
             title: page.title,
             valerrors: ctx.errors,
@@ -186,7 +191,8 @@ exports.edit = async (ctx) => {
         ctx.status = 200
         ctx.state.pagetype = "page"
         ctx.body = ctx.csrf
-
+        ctx.state.envvar = process.env.NODE_ENV 
+        
         return ctx.render("pages/edit", {
             title: page.title,
             csrfToken: ctx.csrf,
@@ -219,7 +225,8 @@ exports.update = async (ctx) => {
         console.log(ctx.errors)
         ctx.status = 226
         ctx.state.pagetype = "page"
-
+        ctx.state.envvar = process.env.NODE_ENV 
+        
         return ctx.render("pages/edit", {
             title: 'Edit page',
             csrfToken: ctx.csrf,
@@ -270,7 +277,8 @@ exports.update = async (ctx) => {
 
             ctx.status = 102
             ctx.state.pagetype = "page"
-
+            ctx.state.envvar = process.env.NODE_ENV 
+            
             return ctx.render("pages/edit", {
                 title: 'Edit page',
                 duperror: error,
