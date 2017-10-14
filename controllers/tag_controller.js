@@ -41,6 +41,7 @@ exports.view = async (ctx) => {
     const tag = ctx.params.tag;
     ctx.state.dateFormat = require('dateformat');
     
+    const messages = []
     const posts = await Post.find({ tags: tag}, {title: 1, slug: 1, images: 1, created: 1})
 
 	if (!tag) {
@@ -55,6 +56,7 @@ exports.view = async (ctx) => {
             valerrors: ctx.errors,
             posts: posts,
             path: "/tags/",
+            messages: messages
         });
 	}
 }
