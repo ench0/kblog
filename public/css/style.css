@@ -53,7 +53,7 @@ h6 { font-size: 1rem;}
     height: 40px;
     font-family: cursive;
     text-transform: lowercase;
-    font-size: .75rem;
+    /* font-size: .75rem; */
 }
 .uk-link, a {
     color: #666;
@@ -85,7 +85,7 @@ img {
 }
 .uk-navbar-nav > li >a.logo {
     font-family: cursive;
-    font-size: 1rem;
+    font-size: 2rem;
     text-transform: lowercase;
     color:#666;
     /* color: blue; */
