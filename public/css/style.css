@@ -80,6 +80,13 @@ h6 { font-size: 1rem;}
     padding: 5px;
 }
 
+#postlist p {
+    margin: 10px 0;
+}
+#postlist h3 {
+    margin: 0;
+}
+
 img {
     filter: 
     /* blur(1px)  */

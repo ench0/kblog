@@ -17,7 +17,7 @@ block header
 
 block content
 
-    div.uk-section.uk-section-xsmall
+    div#postlist.uk-section.uk-section-xsmall
         each post in posts
 
             .uk-card.uk-grid-collapse.uk-margin(uk-grid='')
@@ -39,7 +39,6 @@ block content
                                 | 
                                 a.uk-icon-button.uk-margin-small-left(uk-icon="icon: pencil; ratio: .75" href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)
                         p #{post.headline}
-                        br
                         span Written: #{created}
                         br
                         span Tags:
