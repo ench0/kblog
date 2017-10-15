@@ -122,6 +122,7 @@ exports.create = async (ctx) => {
             csrfToken: data._csrf,
             valerrors: ctx.errors,
             post: data,
+            messages: [],
             ms: Date.now() - ctx.state.start            
         });
     }
@@ -159,6 +160,7 @@ exports.create = async (ctx) => {
                 duperror: error,
                 post: data,
                 tags: tags.toString(),
+                messages: [],
                 ms: Date.now() - ctx.state.start                
             });
         }
@@ -275,6 +277,7 @@ exports.update = async (ctx) => {
             valerrors: ctx.errors,
             post: data,
             tags: tags.toString(),
+            messages: [],
             ms: Date.now() - ctx.state.start            
         });
     }
@@ -329,6 +332,7 @@ exports.update = async (ctx) => {
                 post: data,
                 tags: tags.toString(),
                 csrfToken: ctx.csrf,
+                messages: [],
                 ms: Date.now() - ctx.state.start                
             });
         }
