@@ -27,8 +27,9 @@ block content
 
                 if post.images[0]
                     .uk-card-media-left.uk-cover-container(class='uk-width-1-4@s')
-                        img(src="/uploads/posts/"+post.slug+"/thumb_"+post.images[0].file width="200" height="200" alt="" uk-cover="")
-                        canvas(width='200', height='200')
+                        img(src="/uploads/posts/"+post.slug+"/thumb_"+post.images[0].file width="200" height="200" alt="")
+                        //- uk-cover=""
+                        //- canvas(width='200', height='200')
                 div(class='uk-width-expand@s')
                     .uk-card-body
                         h3.uk-card-title=post.title
