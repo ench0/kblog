@@ -3,7 +3,9 @@ extends ../layout
 block header
     p.headline A tag
     p.abstract
-        | #[strong Abstract.] Tag with corresponding posts.
+        | #[strong Abstract.] Tag "#{title}" with corresponding posts.
+        if posts.length
+            |  Post count: #{posts.length}.
     //- if post.tags.length
     //-     p.abstract
     //-         | #[strong Keywords:]

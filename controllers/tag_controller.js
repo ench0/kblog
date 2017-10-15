@@ -71,7 +71,7 @@ exports.view = async (ctx) => {
     
     const messages = []
     const posts = await Post.find({ tags: tag}, {title: 1, slug: 1, images: 1, created: 1, tags: 1}).sort("-created")
-    
+
 	if (!tag) {
 		throw new Error("There was an error retrieving your tasks.")
 	} else {
