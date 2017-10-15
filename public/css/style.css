@@ -72,6 +72,14 @@ h6 { font-size: 1rem;}
     color: #333;
 }   
 
+.uk-icon-button, #content a.uk-icon-button  {
+    color: #fff;
+    background: #999;
+    width: auto;
+    height: auto;
+    padding: 5px;
+}
+
 img {
     filter: 
     /* blur(1px)  */
