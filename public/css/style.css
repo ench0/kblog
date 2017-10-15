@@ -72,7 +72,8 @@ img {
     saturate(1)
     contrast(1.25)
     sepia(25%);
-    border: 2em solid #fff;
+    background: #999;
+    border: 1em solid #fff;
     box-shadow: 1px 1px 3px rgba(10, 10, 10, .25)
 }
 .headline {
