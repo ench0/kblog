@@ -34,7 +34,12 @@ exports.index = async (ctx) => {
 
 	if (!ctx.isAuthenticated()) var posts = await Post.find({active:true}).sort('-created')
     else var posts = await Post.find({}).sort('-created')
-    
+
+    // tags with count
+    const tags = await Post.aggregate([{ $match: { tags: { $not: {$size: 0} } } },
+        { $unwind: "$tags" }, { $group: { _id: {$toLower: '$tags'}, count: { $sum: 1 } } },
+        { $match: { count: { $gte: 0 } } }, { $sort : { count : -1} }, { $limit : 5 } ]);
+
 	if (!posts) {
 		throw new Error("There was an error retrieving your posts.")
 	} else {
@@ -51,6 +56,7 @@ exports.index = async (ctx) => {
             csrfToken: ctx.csrf,
             post: data,
             body: body,
+            tags: tags,
             ms: Date.now() - ctx.state.start            
         });
 	}

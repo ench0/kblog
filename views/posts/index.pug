@@ -6,13 +6,13 @@ block header
     p.abstract #[strong Abstract.] #{post.abstract}
 
         //- | #[strong Abstract.] The list below shows all the posts sorted by date of creation, newest first. Keywords listed are some of the most used ones.
-    -tags=["tag1", "tag2", "tag3"]
+    //- -tags=["tag1", "tag2", "tag3"]
     p.abstract
         | #[strong Keywords:]
         | 
         span
             each tag in tags
-                span.comma #[a(href="/tags/"+tag)=tag]
+                span.comma #[a(href="/tags/"+tag._id)=tag._id]
                 | 
 
 block content
