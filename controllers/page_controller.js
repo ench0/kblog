@@ -123,7 +123,7 @@ exports.create = async (ctx) => {
             const result = await Page.create(update)
 
             if (result) {
-                ctx.session.messages = {success: ["Page updated successfuly!"]}
+                ctx.session.messages = {success: ["Page created successfuly!"]}
 
                 return await ctx.redirect('/'+result.slug);
             }

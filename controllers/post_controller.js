@@ -140,7 +140,7 @@ exports.create = async (ctx) => {
             const result = await Post.create(update)
 
             if (result) {
-                ctx.session.messages = {success: ["Post updated successfuly!"]}
+                ctx.session.messages = {success: ["Post created successfuly!"]}
 
                 return await ctx.redirect('/posts/'+result.slug);
             }
