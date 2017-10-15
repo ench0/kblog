@@ -98,6 +98,9 @@ img {
     border: 1em solid #fff;
     box-shadow: 1px 1px 3px rgba(10, 10, 10, .25)
 }
+.shadow {
+    box-shadow: 1px 1px 3px rgba(10, 10, 10, .25)    
+}
 .headline {
     font-family: Courier New, Courier, monospace;
 }
