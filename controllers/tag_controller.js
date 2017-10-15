@@ -54,7 +54,8 @@ exports.index = async (ctx) => {
         
         return ctx.render("tags/index", {
             title: 'Tags',
-            tags: tags.sort(),
+            // tags: tags.sort(), // for simple tags
+            tags: tags,            
             messages: messages,
             path: "/tags/",
             ms: Date.now() - ctx.state.start
