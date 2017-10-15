@@ -15,6 +15,13 @@ exports.index = async (ctx) => {
     ctx.state.dateFormat = require('dateformat');
 
     const tags = await Post.distinct( "tags" )
+    // const tags = await Post.aggregate([
+    //     { $sort : { created : -1 } },
+    //     { $group : {_id : "$_id", tags : { $addToSet : "$tags" }, created : { $push : "$created" } } }
+    // ])
+    // for (tag in tags) {
+    //     console.log(tags[tag])
+    // }
     // console.log(tags)
 
     const messages = []
@@ -43,7 +50,7 @@ exports.view = async (ctx) => {
     ctx.state.dateFormat = require('dateformat');
     
     const messages = []
-    const posts = await Post.find({ tags: tag}, {title: 1, slug: 1, images: 1, created: 1, tags: 1})
+    const posts = await Post.find({ tags: tag}, {title: 1, slug: 1, images: 1, created: 1, tags: 1}).sort("-created")
     
 	if (!tag) {
 		throw new Error("There was an error retrieving your tasks.")
