@@ -21,7 +21,7 @@ exports.github = async (ctx) => {
     
     const git = shell.exec('git pull')
 
-    return ctx.render("pages/update", {
+    return ctx.render("auth/update", {
         title: "Update",
         messages: [git.stdout, git.stderr]
     });
@@ -34,7 +34,7 @@ exports.reload = async (ctx) => {
     shell.exec(cd);
     const reloadpm2 = shell.exec('pm2 reload ensar-blog');
     
-    return ctx.render("pages/update", {
+    return ctx.render("auth/update", {
         title: "Reload",
         messages: [reloadpm2.stdout, reloadpm2.stderr]
     });
@@ -51,7 +51,7 @@ exports.gitreset = async (ctx) => {
     git.reset = shell.exec('git reset --hard origin/master')
     git.pull = shell.exec('git pull')
     
-    return ctx.render("pages/update", {
+    return ctx.render("auth/update", {
         title: "Git Hard Reset",
         messages: [git.fetch.stdout, git.fetch.stderr, git.reset.stdout, git.reset.stderr, git.pull.stdout, git.pull.stderr]
     });

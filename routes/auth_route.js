@@ -1,6 +1,8 @@
 const Router = require('koa-router');
 const router = new Router();
 
+const auth = require('../controllers/auth_controller');
+
 // routes
 const fs    = require('fs')
 const passport = require('koa-passport')
@@ -23,7 +25,7 @@ router
     // console.log(ctx.router.path);
 
 
-    const messages = ctx.session.messages || [];
+    // const messages = ctx.session.messages || [];
     delete ctx.session.messages;
 //   var body = fs.readFileSync('views/login.html', 'utf8')
 //   ctx.body = body.replace('{csrfToken}', ctx.csrf)
@@ -48,6 +50,12 @@ router
     }
   })(ctx, next)
 })
+
+
+.get('update', '/update', auth.github)
+.get('reload', '/reload', auth.reload)
+.get('gitreset', '/reset', auth.gitreset)
+
 
 // POST /login
 .post('/login', function(ctx, next) {
