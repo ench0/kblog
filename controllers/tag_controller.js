@@ -14,15 +14,34 @@ const files_upload  = helpers.files_upload
 exports.index = async (ctx) => {
     ctx.state.dateFormat = require('dateformat');
 
-    const tags = await Post.distinct( "tags" )
-    // const tags = await Post.aggregate([
-    //     { $sort : { created : -1 } },
-    //     { $group : {_id : "$_id", tags : { $addToSet : "$tags" }, created : { $push : "$created" } } }
-    // ])
-    // for (tag in tags) {
-    //     console.log(tags[tag])
-    // }
-    // console.log(tags)
+    // simple list of tags
+    // const tags = await Post.distinct( "tags" )
+
+    // tags with count
+    const tags = await Post.aggregate([
+        {
+            $match: {
+                tags: { $not: {$size: 0} }
+            }
+        },
+        { $unwind: "$tags" },
+        {
+            $group: {
+                _id: {$toLower: '$tags'},
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $match: {
+                count: { $gte: 0 }
+            }
+        },
+        { $sort : { count : -1} },
+        { $limit : 100 }
+    ]);
+
+
+    console.log(tags)
 
     const messages = []
 

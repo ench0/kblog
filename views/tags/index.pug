@@ -13,7 +13,7 @@ block content
             div.uk-container.uk-text-center
                 span
                     each tag in tags
-                        span.comma.uk-text-large #[a(href="/tags/"+tag)=tag]
+                        span.comma.uk-text-large #[a(href="/tags/"+tag._id) #{tag._id} (#{tag.count})]
                         | 
 block footer
     ol
