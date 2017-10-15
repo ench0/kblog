@@ -15,33 +15,41 @@ block header
 
 block content
 
-    div.uk-section.uk-section-xsmall
 
-        .uk-grid-match(class='uk-child-width-1-2@s', uk-grid='')
+    if posts.length
 
-            if posts.length
+        div#postlist.uk-section.uk-section-xsmall
+            each post in posts
 
-                each post in posts
+                .uk-card.uk-grid-collapse.uk-margin(uk-grid='')
                     - slug= "/posts/"+post.slug
                     - created=dateFormat(post.created, "ddd, dS mmm yyyy")
-                    - time=dateFormat(post.created, "yyyy-mm-ddTHH:mm")
+                    //- - time=dateFormat(post.created, "yyyy-mm-ddTHH:mm")
 
+                    if post.images[0]
+                        .uk-card-media-left.uk-cover-container(class='uk-width-1-4@s')
+                            a(href=slug)
+                                img(src="/uploads/posts/"+post.slug+"/thumb_"+post.images[0].file width="200" height="200" alt="")
+                            //- uk-cover=""
+                            //- canvas(width='200', height='200')
+                    div(class='uk-width-expand@s')
+                        .uk-card-body.uk-padding-remove-vertical
+                            h3.uk-card-title
+                                a.uk-button-text(href=slug)=post.title
+                                if auth
+                                    | 
+                                    a.uk-icon-button.uk-margin-small-left(uk-icon="icon: pencil; ratio: .75" href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)
+                            p #{post.headline}
+                            span Written: #{created}
+                            br
+                            span Tags:
+                                | 
+                                for tag in post.tags
+                                    a(href="/tags/"+tag)=tag
+                                    | 
 
-                    div
-                        .uk-card.uk-card-default.uk-card-hover
-                            .uk-card-media-top
-                                if post.images[0]
-                                    .uk-cover-container
-                                        canvas(width="400" height="200")
-                                        img.uk-cover(src="/uploads/"+ post.slug + "/thumb_"+ post.images[0].file alt="")
-                            .uk-card-header
-                                h3.uk-card-title=post.title
-                            .uk-card-body
-                                p=created
-                            .uk-card-footer.uk-text-center
-                                a.uk-button.uk-button-text(href=slug) Read more
-            else
-                div Hmmm... No posts found under this tag. Sure you got your url right?
+    else
+        div Hmmm... No posts found under this tag. Sure you got your url right?
 
 
     //- div.uk-section.uk-section-small.uk-padding-small.uk-text-left
@@ -54,5 +62,5 @@ block content
 block footer
     ol
         li Permalink: 
-            a(href="/tags/"+title) #{title}
+            a(href="/tags/"+title) /tags/#{title}
         li Response time: #{ms}ms

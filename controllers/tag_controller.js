@@ -43,7 +43,7 @@ exports.view = async (ctx) => {
     ctx.state.dateFormat = require('dateformat');
     
     const messages = []
-    const posts = await Post.find({ tags: tag}, {title: 1, slug: 1, images: 1, created: 1})
+    const posts = await Post.find({ tags: tag}, {title: 1, slug: 1, images: 1, created: 1, tags: 1})
     
 	if (!tag) {
 		throw new Error("There was an error retrieving your tasks.")
