@@ -115,3 +115,9 @@ block scripts
                 image0, image1, image2
             ]
         });
+
+block footer
+    ol
+        li Permalink: 
+            a(href="/new?_csrf="+csrfToken) new
+        li Response time: #{ms}ms

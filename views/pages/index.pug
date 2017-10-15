@@ -35,7 +35,8 @@ block footer
     ol
         li Permalink: 
             a(href="/"+page.slug)=page.slug
-
+        li Response time: #{ms}ms
+        
 block edit
     if page.slug
         div

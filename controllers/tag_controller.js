@@ -15,11 +15,11 @@ exports.index = async (ctx) => {
     ctx.state.dateFormat = require('dateformat');
 
     const tags = await Post.distinct( "tags" )
-    console.log(tags)
+    // console.log(tags)
 
     const messages = []
 
-	if (!tags) {
+    if (!tags) {
 		throw new Error("There was an error retrieving your posts.")
 	} else {
         ctx.status = 200
@@ -30,7 +30,8 @@ exports.index = async (ctx) => {
             title: 'Tags',
             tags: tags.sort(),
             messages: messages,
-            path: "/tags/"
+            path: "/tags/",
+            ms: Date.now() - ctx.state.start
         });
 	}
 }
@@ -43,7 +44,7 @@ exports.view = async (ctx) => {
     
     const messages = []
     const posts = await Post.find({ tags: tag}, {title: 1, slug: 1, images: 1, created: 1})
-
+    
 	if (!tag) {
 		throw new Error("There was an error retrieving your tasks.")
 	} else {
@@ -56,7 +57,8 @@ exports.view = async (ctx) => {
             valerrors: ctx.errors,
             posts: posts,
             path: "/tags/",
-            messages: messages
+            messages: messages,
+            ms: Date.now() - ctx.state.start
         });
 	}
 }

@@ -46,7 +46,8 @@ exports.index = async (ctx) => {
             auth: ctx.isAuthenticated(),
             csrfToken: ctx.csrf,
             page: data,
-            body: body
+            body: body,
+            ms: Date.now() - ctx.state.start            
         });
 	}
 }
@@ -69,7 +70,8 @@ exports.new = async (ctx) => {
         path: "/",
         page: page,
         csrfToken: ctx.csrf,
-        messages: messages
+        messages: messages,
+        ms: Date.now() - ctx.state.start        
     });
 	
 }
@@ -102,7 +104,8 @@ exports.create = async (ctx) => {
             title: 'New page',
             csrfToken: data._csrf,
             valerrors: ctx.errors,
-            page: data
+            page: data,
+            ms: Date.now() - ctx.state.start            
         });
     }
     else {
@@ -137,7 +140,8 @@ exports.create = async (ctx) => {
                 title: 'Edit page',
                 csrfToken: data._csrf,
                 duperror: error,
-                page: data
+                page: data,
+                ms: Date.now() - ctx.state.start                
             });
         }
 
@@ -174,7 +178,8 @@ exports.view = async (ctx) => {
             path: "/",
             readtime: readtime,
             csrfToken: ctx.csrf,
-            auth: ctx.isAuthenticated()
+            auth: ctx.isAuthenticated(),
+            ms: Date.now() - ctx.state.start            
         });
 	}
 }
@@ -204,7 +209,8 @@ exports.edit = async (ctx) => {
             page: page,
             path: "/",
             csrfToken: ctx.csrf,
-            messages: messages
+            messages: messages,
+            ms: Date.now() - ctx.state.start            
         });
 	}
 }
@@ -236,7 +242,8 @@ exports.update = async (ctx) => {
             title: 'Edit page',
             csrfToken: ctx.csrf,
             valerrors: ctx.errors,
-            page: data
+            page: data,
+            ms: Date.now() - ctx.state.start            
         });
     }
     else {
@@ -288,7 +295,8 @@ exports.update = async (ctx) => {
                 title: 'Edit page',
                 duperror: error,
                 page: data,
-                csrfToken: ctx.csrf
+                csrfToken: ctx.csrf,
+                ms: Date.now() - ctx.state.start                
             });
         }
 

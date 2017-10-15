@@ -224,3 +224,10 @@ block scripts
 
             ]
         });
+
+
+block footer
+    ol
+        li Permalink: 
+            a(href="/"+page.slug+"/edit?_csrf="+csrfToken) /#{page.slug}/edit
+        li Response time: #{ms}ms

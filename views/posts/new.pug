@@ -112,3 +112,10 @@ block scripts
 
             ]
         });
+        
+block footer
+    ol
+        li Permalink: 
+            a(href="/posts/new?_csrf="+csrfToken) new
+        li Response time: #{ms}ms
+        

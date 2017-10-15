@@ -19,7 +19,7 @@ app.use(logger())
 
 
 async function responseTime(ctx, next) {
-
+    ctx.state.start = Date.now();
     const start = Date.now();
     await next();
     const ms = Date.now() - start;
@@ -27,7 +27,8 @@ async function responseTime(ctx, next) {
     const envvar = process.env.NODE_ENV
     ctx.state.envvar = process.env.NODE_ENV
     console.log(envvar, ctx.state.envvar)
-    
+    console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+    ctx.state.ms = ms
 }
   
   app.use(responseTime);

@@ -27,7 +27,8 @@ block footer
     ol
         li Permalink: 
             a(href="/posts/"+post.slug) #{post.slug}
-
+        li Response time: #{ms}ms
+        
 block edit
     div
         a.uk-button.uk-button-default.uk-button-small.uk-position-bottom-left.uk-margin-left(href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)

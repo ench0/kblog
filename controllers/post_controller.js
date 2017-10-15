@@ -50,7 +50,8 @@ exports.index = async (ctx) => {
             auth: ctx.isAuthenticated(),
             csrfToken: ctx.csrf,
             post: data,
-            body: body
+            body: body,
+            ms: Date.now() - ctx.state.start            
         });
 	}
 }
@@ -72,7 +73,8 @@ exports.new = async (ctx) => {
         path: "/posts/",
         post: post,
         csrfToken: ctx.csrf,
-        messages: messages
+        messages: messages,
+        ms: Date.now() - ctx.state.start        
     });
 	
 }
@@ -113,7 +115,8 @@ exports.create = async (ctx) => {
             title: 'New post',
             csrfToken: data._csrf,
             valerrors: ctx.errors,
-            post: data
+            post: data,
+            ms: Date.now() - ctx.state.start            
         });
     }
     else {
@@ -149,7 +152,8 @@ exports.create = async (ctx) => {
                 csrfToken: data._csrf,
                 duperror: error,
                 post: data,
-                tags: tags.toString()
+                tags: tags.toString(),
+                ms: Date.now() - ctx.state.start                
             });
         }
 
@@ -187,7 +191,8 @@ exports.view = async (ctx) => {
             path: "/posts/",
             readtime: readtime,
             csrfToken: ctx.csrf,
-            auth: ctx.isAuthenticated()
+            auth: ctx.isAuthenticated(),
+            ms: Date.now() - ctx.state.start            
         });
 	}
 }
@@ -219,7 +224,8 @@ exports.edit = async (ctx) => {
             tags: post.tags.toString(),
             path: "/posts/",
             csrfToken: ctx.csrf,
-            messages: messages
+            messages: messages,
+            ms: Date.now() - ctx.state.start            
         });
 	}
 }
@@ -262,7 +268,8 @@ exports.update = async (ctx) => {
             csrfToken: ctx.csrf,
             valerrors: ctx.errors,
             post: data,
-            tags: tags.toString()
+            tags: tags.toString(),
+            ms: Date.now() - ctx.state.start            
         });
     }
     else {
@@ -315,7 +322,8 @@ exports.update = async (ctx) => {
                 duperror: error,
                 post: data,
                 tags: tags.toString(),
-                csrfToken: ctx.csrf
+                csrfToken: ctx.csrf,
+                ms: Date.now() - ctx.state.start                
             });
         }
 
