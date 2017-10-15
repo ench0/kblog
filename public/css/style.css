@@ -64,6 +64,13 @@ h6 { font-size: 1rem;}
     color: #6b1f2c;
     border-bottom: 1px dotted #6b1f2c;
 }
+#content h1 a, #content h2 a, #content h3 a, #content h4 a, #content h5 a, #content h6 a {
+    border-bottom: none;
+}
+#content h1 a:hover, #content h2 a:hover, #content h3 a:hover, #content h4 a:hover, #content h5 a:hover, #content h6 a:hover {
+    border-bottom: none;
+    color: #333;
+}   
 
 img {
     filter: 
