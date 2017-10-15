@@ -25,7 +25,7 @@ router
     // console.log(ctx.router.path);
 
 
-    // const messages = ctx.session.messages || [];
+    const messages = ctx.session.messages || [];
     delete ctx.session.messages;
 //   var body = fs.readFileSync('views/login.html', 'utf8')
 //   ctx.body = body.replace('{csrfToken}', ctx.csrf)
