@@ -96,7 +96,16 @@ img {
     sepia(25%);
     background: #999;
     border: 1em solid #fff;
-    box-shadow: 1px 1px 3px rgba(10, 10, 10, .25)
+    box-shadow: 1px 1px 3px rgba(10, 10, 10, .25);
+    transition: filter .5s;    
+}
+img:hover {
+    filter: 
+    /* blur(1px)  */
+    grayscale(15%)
+    saturate(1.5)
+    contrast(1.5)
+    sepia(15%);
 }
 .shadow {
     box-shadow: 1px 1px 3px rgba(10, 10, 10, .25)    
