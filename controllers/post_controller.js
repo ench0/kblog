@@ -174,7 +174,7 @@ exports.view = async (ctx) => {
     const slug = ctx.params.slug;
     const post = await Post.findOne({ slug: slug })
     
-	if (!post) {
+	if (!post || (!ctx.isAuthenticated() & !post.active)) {
         console.log("ERROR!")
         return ctx.redirect('/404');        
         throw new Error("There was an error retrieving your post.")
@@ -288,6 +288,7 @@ exports.update = async (ctx) => {
             
             await files_move(ctx.params.slug,data.slug, "posts")
             
+            console.log(data.active)
 
             if (data.replace) var clear = true; else var clear = false
             if (data.resized) var resized = true; else var resized = false
