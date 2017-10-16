@@ -58,8 +58,9 @@ exports.new = async (ctx) => {
     checkLogin(ctx)
     ctx.params._csrf = ctx.csrf;
     
+    const messages = ctx.session.messages || []; // get any messages saved in the session
+    delete ctx.session.messages; // delete the messages as they've been delivered
     var page = []
-    const messages = []
     
     ctx.status = 200
     ctx.state.pagetype = "page"
@@ -88,65 +89,49 @@ exports.create = async (ctx) => {
     }
     else if (ctx.request.body.files.images.name == '') var files = []
     else var files = [ctx.request.body.files.images]
+        
+    try {
 
-    ctx.checkBody('title').notEmpty("Page should have a title!").len(2, 100,"Title needs to be 2-100 characters long!");
-    ctx.checkBody('slug').notEmpty("Slug can not be empty!").len(2, 100,"Slug needs to be 2-100 characters long!");
-    ctx.checkBody('body').optional().empty().len(2, 10240,"Body needs to be 2-10240 characters long!");
+        if (data.replace) var clear = true; else var clear = false
+        if (data.resized) var resized = true; else var resized = false
+        
+        const images = files_upload(data.slug, "pages", files, clear, resized)
 
-    if (ctx.errors) {
+        const update = {title: data.title, slug: data.slug, body: data.body, active: data.active, abstract: data.abstract, images: images, headline: data.headline}
 
-        console.log(ctx.errors)
-        ctx.status = 226
+        const result = await Page.create(update)
+
+        if (result) {
+            ctx.session.messages = {success: ["Page created successfuly!"]}
+
+            return await ctx.redirect('/'+result.slug);
+        }
+
+    } catch(err) {
+        console.log("CATCHED CREATE ERR!")
+        var messages = {danger: []}
+        console.log(err)
+
+        if (err.name === 'MongoError' && err.code === 11000) messages.danger.push("Duplicate entry -  "+S(err.message).between('dup key: { : ', '}').s)
+
+
+        for (let value in err.errors) {
+            messages.danger.push(err.errors[value].message)
+        } 
+
+        ctx.session.messages = messages
+
+        // ctx.status = 102
         ctx.state.pagetype = "page"
         ctx.state.envvar = process.env.NODE_ENV 
         
-        return ctx.render("pages/new", {
-            title: 'New page',
+        await ctx.render("pages/edit", {
+            title: 'Edit page',
             csrfToken: data._csrf,
-            valerrors: ctx.errors,
             page: data,
-            messages: [],
-            ms: Date.now() - ctx.state.start            
+            messages: messages,                
+            ms: Date.now() - ctx.state.start                
         });
-    }
-    else {
-        
-        try {
-
-            if (data.replace) var clear = true; else var clear = false
-            if (data.resized) var resized = true; else var resized = false
-            
-            const images = files_upload(data.slug, "pages", files, clear, resized)
-
-            const update = {title: data.title, slug: data.slug, body: data.body, active: data.active, abstract: data.abstract, images: images, headline: data.headline}
-
-            const result = await Page.create(update)
-
-            if (result) {
-                ctx.session.messages = {success: ["Page created successfuly!"]}
-
-                return await ctx.redirect('/'+result.slug);
-            }
-
-        } catch(err) {
-            console.log("CATCHED UPDATE ERR!")
-            console.log(err)
-            if (err.name === 'MongoError' && err.code === 11000) var error = "Duplicate entry -  "+S(err.message).between('dup key: { : ', '}').s
-
-            ctx.status = 102
-            ctx.state.pagetype = "page"
-            ctx.state.envvar = process.env.NODE_ENV 
-            
-            return ctx.render("pages/edit", {
-                title: 'Edit page',
-                csrfToken: data._csrf,
-                duperror: error,
-                page: data,
-                messages: [],                
-                ms: Date.now() - ctx.state.start                
-            });
-        }
-
     }
 
 }
@@ -228,82 +213,65 @@ exports.update = async (ctx) => {
     else if (ctx.request.body.files.images.name == '') var files = []
     else var files = [ctx.request.body.files.images]
 
-    ctx.checkBody('title').notEmpty("Page should have a title!").len(2, 100,"Title needs to be 2-100 characters long!");
-    ctx.checkBody('slug').notEmpty("Slug can not be empty!").len(2, 100,"Slug needs to be 2-100 characters long!");
-    ctx.checkBody('body').optional().empty().len(2, 10240,"Body needs to be 2-10240 characters long!");    
-    
-    if (ctx.errors) {
+    try {
+        console.log("old:",ctx.params.slug,"new:",data.slug)
+        
+        await files_move(ctx.params.slug,data.slug, "pages")
+        
 
-        console.log("CTX ERRORS")
-        console.log(ctx.errors)
-        ctx.status = 226
+        if (data.replace) var clear = true; else var clear = false
+        if (data.resized) var resized = true; else var resized = false
+        
+        const images = await files_upload(data.slug, "pages", files, clear, resized)
+
+        const searchById = {_id: data._id}
+        const update = {title: data.title, slug: data.slug, body: data.body, active: data.active, abstract: data.abstract, headline: data.headline, updated: Date.now()}
+                    
+        if (!data.replace) {
+            var push = { $set: update, $push: { images: {$each: images}}}
+        }
+        else {
+            console.log("else!")
+            var push = { $set: update, images: images }
+        }
+
+        const result = 
+        await Page.findOneAndUpdate(
+            searchById,
+            push,
+            {safe: true, upsert: true, new : true}
+        );
+        
+        if (result) {                
+            ctx.session.messages = {success: ["Page updated successfuly!"]}
+            await ctx.redirect('/'+result.slug);
+        }
+
+    } catch(err) {
+        console.log("CATCHED UPDATE ERR!")
+        var messages = {danger: []}
+        // console.log(err)
+
+        if (err.name === 'MongoError' && err.code === 11000) messages.danger.push("Duplicate entry -  "+S(err.message).between('dup key: { : ', '}').s)
+
+
+        for (let value in err.errors) {
+            messages.danger.push(err.errors[value].message)
+        } 
+
+        ctx.session.messages = messages
+
+        // ctx.status = 102
         ctx.state.pagetype = "page"
         ctx.state.envvar = process.env.NODE_ENV 
         
-        return ctx.render("pages/edit", {
+        await ctx.render("pages/edit", {
             title: 'Edit page',
-            csrfToken: ctx.csrf,
-            valerrors: ctx.errors,
             page: data,
-            messages: [],            
-            ms: Date.now() - ctx.state.start            
+            csrfToken: ctx.csrf,
+            messages: messages,                
+            ms: Date.now() - ctx.state.start                
         });
-    }
-    else {
-
-        try {
-            console.log("old:",ctx.params.slug,"new:",data.slug)
-            
-            await files_move(ctx.params.slug,data.slug, "pages")
-            
-
-            if (data.replace) var clear = true; else var clear = false
-            if (data.resized) var resized = true; else var resized = false
-            
-            const images = await files_upload(data.slug, "pages", files, clear, resized)
-
-            const searchById = {_id: data._id}
-            const update = {title: data.title, slug: data.slug, body: data.body, active: data.active, abstract: data.abstract, headline: data.headline, updated: Date.now()}
-                        
-            if (!data.replace) {
-                var push = { $set: update, $push: { images: {$each: images}}}
-            }
-            else {
-                console.log("else!")
-                var push = { $set: update, images: images }
-            }
-
-            const result = 
-            await Page.findOneAndUpdate(
-                searchById,
-                push,
-                {safe: true, upsert: true, new : true}
-            );
-            
-            if (result) {                
-                ctx.session.messages = {success: ["Page updated successfuly!"]}
-                await ctx.redirect('/'+result.slug);
-            }
-
-        } catch(err) {
-            console.log("CATCHED UPDATE ERR!")
-            console.log(err)
-            if (err.name === 'MongoError' && err.code === 11000) var error = "Duplicate entry -  "+S(err.message).between('dup key: { : ', '}').s
-
-            ctx.status = 102
-            ctx.state.pagetype = "page"
-            ctx.state.envvar = process.env.NODE_ENV 
-            
-            return ctx.render("pages/edit", {
-                title: 'Edit page',
-                duperror: error,
-                page: data,
-                csrfToken: ctx.csrf,
-                messages: [],                
-                ms: Date.now() - ctx.state.start                
-            });
-        }
-
     }
 
 }
