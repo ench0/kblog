@@ -37,7 +37,12 @@ block content
                             a.uk-button-text(href=slug)=post.title
                             if auth
                                 | 
-                                a.uk-icon-button.uk-margin-small-left(uk-icon="icon: pencil; ratio: .75" href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)
+                                a.uk-button-primary.uk-icon-button.uk-margin-small-left(uk-icon="icon: pencil; ratio: .75" href="/posts/"+post.slug+"/edit?_csrf="+csrfToken)
+                                if post.active
+                                    i.uk-text-success.uk-button-default.uk-icon-button.uk-margin-small-left(uk-icon="icon: check; ratio: .75")
+                                else
+                                    i.uk-text-danger.uk-button-default.uk-icon-button.uk-margin-small-left(uk-icon="icon: close; ratio: .75")
+
                         p #{post.headline}
                         span Written: #{created}
                         br
