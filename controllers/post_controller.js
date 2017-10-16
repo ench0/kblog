@@ -137,7 +137,8 @@ exports.create = async (ctx) => {
         } 
 
         ctx.session.messages = messages
-
+        delete ctx.session.messages; // delete the messages as they've been delivered
+        
         // ctx.status = 102
         ctx.state.pagetype = "post"
         ctx.state.envvar = process.env.NODE_ENV 
@@ -293,7 +294,8 @@ exports.update = async (ctx) => {
         } 
 
         ctx.session.messages = messages
-
+        delete ctx.session.messages; // delete the messages as they've been delivered
+        
         // ctx.status = 102
         ctx.state.pagetype = "post"
         ctx.state.envvar = process.env.NODE_ENV 

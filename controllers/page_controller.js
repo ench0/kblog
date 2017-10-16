@@ -38,7 +38,7 @@ exports.index = async (ctx) => {
         ctx.state.pagetype = "page"
         ctx.state.envvar = process.env.NODE_ENV 
         
-        return ctx.render("pages/index", {
+        await ctx.render("pages/index", {
             title: data.title || 'List of Pages',
             pages: pages,
             messages: messages,
@@ -120,7 +120,8 @@ exports.create = async (ctx) => {
         } 
 
         ctx.session.messages = messages
-
+        delete ctx.session.messages; // delete the messages as they've been delivered
+        
         // ctx.status = 102
         ctx.state.pagetype = "page"
         ctx.state.envvar = process.env.NODE_ENV 
@@ -260,7 +261,8 @@ exports.update = async (ctx) => {
         } 
 
         ctx.session.messages = messages
-
+        delete ctx.session.messages; // delete the messages as they've been delivered
+        
         // ctx.status = 102
         ctx.state.pagetype = "page"
         ctx.state.envvar = process.env.NODE_ENV 
