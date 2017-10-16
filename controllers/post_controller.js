@@ -12,11 +12,13 @@ const files_delete = helpers.files_delete
 const files_move = helpers.files_move
 
 const checkLogin = async (ctx, next) => {
-    if (ctx.isAuthenticated()) return
-    else { 
+    console.log("auth:", ctx.isAuthenticated())
+    if (!ctx.isAuthenticated()) {
         ctx.session.messages = {danger: ["You are not authorised!"]}
-        ctx.redirect('/posts/');
+        console.log("REDIRECTING?")
+        await ctx.redirect('/');
     }
+    else return
 }
 
 // INDEX
@@ -63,10 +65,12 @@ exports.index = async (ctx) => {
 }
 
 // NEW
-exports.new = async (ctx) => {
-    checkLogin(ctx)
+exports.new = async (ctx, next) => {
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    else {
+
     ctx.params._csrf = ctx.csrf;
-    
     const messages = ctx.session.messages || []; // get any messages saved in the session
     delete ctx.session.messages; // delete the messages as they've been delivered
     var post = []
@@ -75,7 +79,7 @@ exports.new = async (ctx) => {
     ctx.state.pagetype = "post"
     ctx.state.envvar = process.env.NODE_ENV 
 
-    return ctx.render("posts/new", {
+    await ctx.render("posts/new", {
         title: 'New post',
         path: "/posts/",
         post: post,
@@ -83,13 +87,16 @@ exports.new = async (ctx) => {
         messages: messages,
         ms: Date.now() - ctx.state.start        
     });
-	
+    }
 }
 
 // CREATE
 exports.create = async (ctx) => {
-    checkLogin(ctx)
-    
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+
+    else {
+        
     ctx.params._csrf = ctx.csrf;
 
     const data = ctx.request.body.fields
@@ -121,7 +128,7 @@ exports.create = async (ctx) => {
         if (result) {
             ctx.session.messages = {success: ["Post created successfuly!"]}
 
-            return await ctx.redirect('/posts/'+result.slug);
+            return ctx.redirect('/posts/'+result.slug);
         }
 
     } catch(err) {
@@ -146,7 +153,7 @@ exports.create = async (ctx) => {
         console.log("messages:")
         console.log(messages)
 
-        await ctx.render("posts/new", {
+        return ctx.render("posts/new", {
             title: 'New post - error',
             csrfToken: data._csrf,
             post: data,
@@ -155,7 +162,7 @@ exports.create = async (ctx) => {
             ms: Date.now() - ctx.state.start                
         });
     }
-
+    }
 }
 
 // VIEW
@@ -196,8 +203,11 @@ exports.view = async (ctx) => {
 
 // EDIT
 exports.edit = async (ctx) => {
-    checkLogin(ctx)
-    
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+
+    else {
+        
     const csrfToken = ctx.csrf;    
     const messages = []
     
@@ -205,7 +215,7 @@ exports.edit = async (ctx) => {
     const slug = ctx.params.slug;
 	const post = await Post.findOne({ slug: slug })
 	if (!post) {
-        ctx.redirect('/404/');        
+        return ctx.redirect('/404');        
         throw new Error("There was an error retrieving your tasks.")
 	} else {
         ctx.status = 200
@@ -224,13 +234,17 @@ exports.edit = async (ctx) => {
             messages: messages,
             ms: Date.now() - ctx.state.start            
         });
-	}
+    }
+    }
 }
 
 // UPDATE
 exports.update = async (ctx) => {
-    checkLogin(ctx)
-    
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+
+    else {
+        
     const data = ctx.request.body.fields
     if (ctx.request.body.files.images.length > 1) {
         var files = ctx.request.body.files.images
@@ -278,7 +292,7 @@ exports.update = async (ctx) => {
         
         if (result) {                
             ctx.session.messages = {success: ["Post updated successfuly!"]}
-            await ctx.redirect('/posts/'+result.slug);
+            return ctx.redirect('/posts/'+result.slug);
         }
 
     } catch(err) {
@@ -300,7 +314,7 @@ exports.update = async (ctx) => {
         ctx.state.pagetype = "post"
         ctx.state.envvar = process.env.NODE_ENV 
         
-        await ctx.render("posts/edit", {
+        return ctx.render("posts/edit", {
             title: 'Edit post',
             post: data,
             tags: tags.toString(),
@@ -309,13 +323,17 @@ exports.update = async (ctx) => {
             ms: Date.now() - ctx.state.start                
         });
     }
+    }
 
 }
 
 // DELETE
 exports.delete = async (ctx) => {
-    checkLogin(ctx)
-    
+
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+
+    else {
     const slug = ctx.request.body.slug
     const csrfToken = ctx.params._csrf;
 	const result = await Post.findOneAndRemove({_id: ctx.request.body._id})
@@ -325,9 +343,10 @@ exports.delete = async (ctx) => {
         ctx.status = 200
         files_delete(slug, "posts")
         ctx.session.messages = {success: ["Post deleted successfuly!"]}
-        ctx.redirect('/posts/');
+        ctx.redirect('/posts');
         
-	}
+    }
+    }
 }
 
 

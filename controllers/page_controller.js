@@ -54,8 +54,10 @@ exports.index = async (ctx) => {
 
 // NEW
 exports.new = async (ctx) => {
-    console.log("new page")
-    checkLogin(ctx)
+
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    else {
     ctx.params._csrf = ctx.csrf;
     
     const messages = ctx.session.messages || []; // get any messages saved in the session
@@ -74,12 +76,14 @@ exports.new = async (ctx) => {
         messages: messages,
         ms: Date.now() - ctx.state.start        
     });
-	
+}
 }
 
 // CREATE
 exports.create = async (ctx) => {
-    checkLogin(ctx)
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    else {
     
     ctx.params._csrf = ctx.csrf;
 
@@ -134,7 +138,7 @@ exports.create = async (ctx) => {
             ms: Date.now() - ctx.state.start                
         });
     }
-
+    }
 }
 
 // VIEW
@@ -174,8 +178,11 @@ exports.view = async (ctx) => {
 
 // EDIT
 exports.edit = async (ctx) => {
-    checkLogin(ctx)
-    
+
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    else {
+
     const csrfToken = ctx.csrf; 
     const messages = []
     
@@ -200,13 +207,17 @@ exports.edit = async (ctx) => {
             messages: messages,
             ms: Date.now() - ctx.state.start            
         });
-	}
+    }
+    }
 }
 
 // UPDATE
 exports.update = async (ctx) => {
-    checkLogin(ctx)
-    
+
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    else {
+
     const data = ctx.request.body.fields
     if (ctx.request.body.files.images.length > 1) {
         var files = ctx.request.body.files.images
@@ -275,12 +286,14 @@ exports.update = async (ctx) => {
             ms: Date.now() - ctx.state.start                
         });
     }
-
+    }
 }
 
 // DELETE
 exports.delete = async (ctx) => {
-    checkLogin(ctx)
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    else {
     
     const slug = ctx.request.body.slug
     const csrfToken = ctx.params._csrf;
@@ -293,7 +306,8 @@ exports.delete = async (ctx) => {
         ctx.session.messages = {success: ["Page deleted successfuly!"]}
         ctx.redirect('/');
         
-	}
+    }
+}
 }
 
 

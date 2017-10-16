@@ -21,40 +21,42 @@ app.use(logger())
 async function responseTime(ctx, next) {
     ctx.state.start = Date.now();
     const start = Date.now();
-    await next();
-    const ms = Date.now() - start;
-    ctx.set('X-Response-Time', `${ms}ms`);
     const envvar = process.env.NODE_ENV
     ctx.state.envvar = process.env.NODE_ENV
-    console.log(envvar, ctx.state.envvar)
-    console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+
+    // console.log("env",ctx.state.envvar)
+
+    await next();
+
+    const ms = Date.now() - start;
+    ctx.set('X-Response-Time', `${ms}ms`);
+    // console.log(envvar, ctx.state.envvar)
+    // console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
     ctx.state.ms = ms
 }
-  
-  app.use(responseTime);
-
+app.use(responseTime);
 
 
 /*
 	Server Config
 */
-// error handling
-app.use(async (ctx, next) => {
-    try {
-      await next()
-    } catch (err) {
-      console.log("ERROR HANDLING")
-      ctx.status = err.status || 500
-      ctx.body = err.message
-      ctx.app.emit('error', err, ctx)
-    }
-  })
-// 404
-app.use(async function(ctx, next) {
-    await next();
-    if (ctx.body || !ctx.idempotent) return;
-    ctx.redirect('/404');
-});
+// // error handling
+// app.use(async (ctx, next) => {
+//     try {
+//       await next()
+//     } catch (err) {
+//       console.log("ERROR HANDLING")
+//       ctx.status = err.status || 500
+//       ctx.body = err.message
+//       ctx.app.emit('error', err, ctx)
+//     }
+//   })
+// // 404
+// app.use(async function(ctx, next) {
+//     await next();
+//     if (ctx.body || !ctx.idempotent) return;
+//     ctx.redirect('/404');
+// });
 
 
 // MongoDB
@@ -100,10 +102,25 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 
+
 // VIEWS
 app.use(views(__dirname + '/views', { extension: 'pug' }))
 // VALIDATION
-require('koa-validate')(app);
+// require('koa-validate')(app);
+
+
+// async function authenticated(ctx, next) {
+//     const auth =  ctx.isAuthenticated()
+//     console.log("auth:",auth)    
+
+//     // console.log("env",ctx.state.envvar)
+//     if (!auth) ctx.body="No!"
+//     else await next();
+
+// }
+// app.use(authenticated);
+
+
 
 // favicon before routes
 app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -113,6 +130,11 @@ const router = require('./routes')
 app
 .use(router.routes())
 .use(router.allowedMethods())
+
+
+
+
+
 
 // start server
 const port = process.env.PORT || 3000

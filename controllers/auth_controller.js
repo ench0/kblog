@@ -3,7 +3,7 @@ const path = require('path')
 
 const cd = "cd " + path.join(__dirname, "../")
 
-const delay = require('await-delay')
+// const delay = require('await-delay')
 
 const checkLogin = async (ctx, next) => {
     if (ctx.isAuthenticated()) return
@@ -15,7 +15,10 @@ const checkLogin = async (ctx, next) => {
 
 exports.github = async (ctx) => {
     
-    checkLogin(ctx)
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    else {
+
     console.log("logged in")
     shell.exec(cd)
     
@@ -25,12 +28,15 @@ exports.github = async (ctx) => {
         title: "Update",
         messages: [git.stdout, git.stderr]
     });
+    }
 }
 
 exports.reload = async (ctx) => {
     
-    checkLogin(ctx)
-    
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    else {
+
     shell.exec(cd);
     const reloadpm2 = shell.exec('pm2 reload ensar-blog');
     
@@ -38,11 +44,14 @@ exports.reload = async (ctx) => {
         title: "Reload",
         messages: [reloadpm2.stdout, reloadpm2.stderr]
     });
+    }
 }
 
 exports.gitreset = async (ctx) => {
     
-    checkLogin(ctx)
+    const auth =  ctx.isAuthenticated()    
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    else {
     console.log("logged in")
     shell.exec(cd)
     
@@ -55,5 +64,6 @@ exports.gitreset = async (ctx) => {
         title: "Git Hard Reset",
         messages: [git.fetch.stdout, git.fetch.stderr, git.reset.stdout, git.reset.stderr, git.pull.stdout, git.pull.stderr]
     });
+    }
 }
 

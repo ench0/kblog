@@ -11,8 +11,8 @@ router
 
 .get('edit', '/:slug/edit', pages.edit)
 .post('/:slug/edit', pages.update)
-.get('index', '/index', pages.redirect)
-.get('view', '/:slug', pages.view)
-.post('/:id', pages.delete)
+// .get('index', '/index', pages.redirect)
+// .get('view', '/:slug', pages.view)
+// .post('/:id', pages.delete)
 
 module.exports = router;
