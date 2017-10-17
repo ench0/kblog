@@ -11,13 +11,6 @@ const files_upload  = helpers.files_upload
 const files_delete = helpers.files_delete
 const files_move = helpers.files_move
 
-const checkLogin = async (ctx, next) => {
-    if (ctx.isAuthenticated()) return
-    else { 
-        ctx.session.messages = {danger: ["You are not authorised!"]}
-        ctx.redirect('/');
-    }
-}
 
 // INDEX
 exports.index = async (ctx) => {
@@ -52,6 +45,7 @@ exports.index = async (ctx) => {
 	}
 }
 
+
 // NEW
 exports.new = async (ctx) => {
 
@@ -78,6 +72,7 @@ exports.new = async (ctx) => {
     });
 }
 }
+
 
 // CREATE
 exports.create = async (ctx) => {
@@ -141,13 +136,15 @@ exports.create = async (ctx) => {
     }
 }
 
+
 // VIEW
 exports.view = async (ctx) => {
     const slug = ctx.params.slug;
     const page = await Page.findOne({ slug: slug })
 
-	if (!page) {
-        return ctx.redirect('/404');        
+	if (!page || (!ctx.isAuthenticated() & !page.active)) {
+        return ctx.redirect('/404');
+        console.log("Page not found!")
 		throw new Error("There was an error retrieving your tasks.")
 	} else {
         const timestamp = time_stamp(page.created)
@@ -156,7 +153,7 @@ exports.view = async (ctx) => {
         const messages = ctx.session.messages || []; // get any messages saved in the session    
         delete ctx.session.messages; // delete the messages as they've been delivered
 
-        ctx.status = 200
+        // ctx.status = 200
         ctx.state.pagetype = "page"
         ctx.state.envvar = process.env.NODE_ENV 
         
@@ -175,6 +172,7 @@ exports.view = async (ctx) => {
         });
 	}
 }
+
 
 // EDIT
 exports.edit = async (ctx) => {
@@ -210,6 +208,7 @@ exports.edit = async (ctx) => {
     }
     }
 }
+
 
 // UPDATE
 exports.update = async (ctx) => {
@@ -288,6 +287,7 @@ exports.update = async (ctx) => {
     }
     }
 }
+
 
 // DELETE
 exports.delete = async (ctx) => {

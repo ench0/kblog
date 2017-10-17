@@ -2,7 +2,7 @@ const Post = require('../models/post')
 
 const S = require('string');
 
-var md = require('markdown-it')();
+const md = require('markdown-it')();
 const helpers = require('./helpers');
 
 const reading_time = helpers.reading_time
@@ -11,15 +11,6 @@ const files_upload  = helpers.files_upload
 const files_delete = helpers.files_delete
 const files_move = helpers.files_move
 
-const checkLogin = async (ctx, next) => {
-    console.log("auth:", ctx.isAuthenticated())
-    if (!ctx.isAuthenticated()) {
-        ctx.session.messages = {danger: ["You are not authorised!"]}
-        console.log("REDIRECTING?")
-        await ctx.redirect('/');
-    }
-    else return
-}
 
 // INDEX
 exports.index = async (ctx) => {
@@ -32,7 +23,7 @@ exports.index = async (ctx) => {
     if (index) {var data = index; var body = md.render(data.body);}
     else {var data = []; var body = []}
     
-    console.log('The value of PORT is:', process.env.PORT,  process.env.NODE_ENV);
+    // console.log('The value of PORT is:', process.env.PORT,  process.env.NODE_ENV);
 
 	if (!ctx.isAuthenticated()) var posts = await Post.find({active:true}).sort('-created')
     else var posts = await Post.find({}).sort('-created')
@@ -49,7 +40,7 @@ exports.index = async (ctx) => {
         ctx.state.pagetype = "post"
         ctx.state.envvar = process.env.NODE_ENV
 
-        return ctx.render("posts/index", {
+        await ctx.render("posts/index", {
             title: 'List of Posts',
             posts: posts,
             messages: messages,
@@ -64,10 +55,12 @@ exports.index = async (ctx) => {
 	}
 }
 
+
 // NEW
 exports.new = async (ctx, next) => {
+
     const auth =  ctx.isAuthenticated()    
-    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]}; ctx.redirect('/');}
+    if (!auth) {ctx.session.messages = {danger: ["You are not authorised!"]};return ctx.redirect('/');throw new Error("There was an error retrieving your post.")}
     else {
 
     ctx.params._csrf = ctx.csrf;
@@ -89,6 +82,7 @@ exports.new = async (ctx, next) => {
     });
     }
 }
+
 
 // CREATE
 exports.create = async (ctx) => {
@@ -165,6 +159,7 @@ exports.create = async (ctx) => {
     }
 }
 
+
 // VIEW
 exports.view = async (ctx) => {
     const slug = ctx.params.slug;
@@ -237,6 +232,7 @@ exports.edit = async (ctx) => {
     }
     }
 }
+
 
 // UPDATE
 exports.update = async (ctx) => {
@@ -326,6 +322,7 @@ exports.update = async (ctx) => {
     }
 
 }
+
 
 // DELETE
 exports.delete = async (ctx) => {

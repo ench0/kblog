@@ -13,7 +13,7 @@
     "go": "cross-env NODE_ENV=production node app",
     "dev": "cross-env NODE_ENV=dev nodemon -e js,css,pug,json",
     "dev2": "PORT=3000 node-supervisor -e 'node,js,css,pug,json' ./app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "homepage": "https://github.com/ench0/kblog",
   "dependencies": {
@@ -54,6 +54,7 @@
     "node": ">= 7"
   },
   "devDependencies": {
+    "ava": "^0.22.0",
     "cross-env": "^5.0.5"
   }
 }
