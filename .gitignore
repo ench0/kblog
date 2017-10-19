@@ -60,5 +60,6 @@ typings/
 # additional
 public/uploads/
 secrets/
+views/analytics.js
 
 .DS_Store
