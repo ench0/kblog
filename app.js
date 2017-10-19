@@ -19,6 +19,8 @@ app.proxy = true
 app.use(logger())
 
 async function responseTime(ctx, next) {
+    if (ctx.hostname == "127.0.0.1" || ctx.hostname == "localhost")
+    ctx.state.envlocal = true;
     ctx.state.start = Date.now();
     const start = Date.now();
     await next();
