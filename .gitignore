@@ -61,5 +61,6 @@ typings/
 public/uploads/
 secrets/
 views/analytics.js
+views/analytics.pug
 
 .DS_Store

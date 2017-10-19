@@ -1,3 +1,5 @@
+'use strict';
+
 const Koa = require('koa')
 const csrf = require('koa-csrf')
 const app = new Koa()
