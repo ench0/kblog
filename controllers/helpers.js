@@ -1,3 +1,5 @@
+'use strict';
+
 const dateFormat = require('dateformat');
 const S = require('string');
 const fs = require('fs-extra')
@@ -8,8 +10,8 @@ const path = require('path');
 const sharp = require('sharp');
 
 const date_diff_indays = function(date1, date2) {
-    dt1 = new Date(date1);
-    dt2 = new Date(date2);
+    let dt1 = new Date(date1);
+    let dt2 = new Date(date2);
     return Math.floor((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
 }
 
@@ -57,7 +59,7 @@ exports.files_upload = function(slug, path, files, clear, resized) {
     }
     
     // let files = ctx.request.body.files.images;
-    for (file in files) {
+    for (let file in files) {
         
         let reader = fs.createReadStream(files[file].path);
         // console.log(files[file])

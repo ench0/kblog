@@ -1,3 +1,5 @@
+'use strict';
+
 const Post = require('../models/post')
 
 const S = require('string');

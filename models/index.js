@@ -1,3 +1,5 @@
+'use strict';
+
 const mongoose = require('mongoose')
 const mongoDB = process.env.MONGODB_URI || 'mongodb://localhost/kblog';
 mongoose.Promise = require('bluebird')

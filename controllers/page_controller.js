@@ -1,3 +1,5 @@
+'use strict';
+
 const Page = require('../models/page')
 
 const S = require('string');

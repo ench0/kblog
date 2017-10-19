@@ -1,3 +1,5 @@
+'use strict';
+
 const Post = require('../models/post')
 
 const S = require('string');
@@ -128,7 +130,7 @@ exports.create = async (ctx) => {
     } catch(err) {
         console.log("CATCHED CREATE ERR!")
         var messages = {danger: []}
-        // console.log(err)
+        console.log(err)
 
         if (err.name === 'MongoError' && err.code === 11000) messages.danger.push("Duplicate entry -  "+S(err.message).between('dup key: { : ', '}').s)
 
