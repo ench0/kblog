@@ -19,7 +19,7 @@
   "dependencies": {
     "dateformat": "^3.0.2",
     "fs-extra": "^4.0.2",
-    "handlebars": "^4.0.6",
+    "handlebars": "^4.3.0",
     "koa": "^2.0.0-alpha.7",
     "koa-body": "^2.5.0",
     "koa-convert": "^1.2.0",
