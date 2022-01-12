@@ -35,7 +35,7 @@
     "koa-static": "^4.0.1",
     "koa-validate": "^1.0.7",
     "koa-views": "^6.1.1",
-    "markdown-it": "^8.4.0",
+    "markdown-it": "^12.3.2",
     "mongoose": "^4.7.2",
     "passport-facebook": "^2.1.1",
     "passport-google-auth": "^1.0.1",
