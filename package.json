@@ -43,7 +43,7 @@
     "passport-twitter": "^1.0.4",
     "pug": "^2.0.0-rc.4",
     "sharp": "^0.18.4",
-    "shelljs": "^0.7.8",
+    "shelljs": "^0.8.5",
     "string": "^3.3.3"
   },
   "repository": {
